@@ -25,6 +25,6 @@ public class IntroActivity extends MainActivity{
 
                 finish();
             }
-        },5000); //splash를 몇초간 띄울것인가 2000=2초
+        },2000); //splash 2초
     }
 }
