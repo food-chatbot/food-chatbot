@@ -12,8 +12,8 @@ public class IntroActivity extends MainActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro); //splash를 띄울 xml화면
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        //ActionBar actionBar = getSupportActionBar();
+        //actionBar.hide();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
