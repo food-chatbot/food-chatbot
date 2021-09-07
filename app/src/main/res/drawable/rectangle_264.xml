@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- login.xml에서 네이버로 시작하기 상자 -->
+
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="#f87332"
+                android:endColor="#e83e00"
+                android:angle="90" />
+            <corners
+                android:bottomLeftRadius="12dp"
+                android:bottomRightRadius="12dp"
+                android:topLeftRadius="12dp"
+                android:topRightRadius="12dp" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="#00ffffff"
+                android:endColor="#ffffff"
+                android:angle="90" />
+        </shape>
+    </item>
+
+</selector>

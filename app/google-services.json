@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "323780106548",
+    "project_id": "food-chatbot-5af79",
+    "storage_bucket": "food-chatbot-5af79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323780106548:android:77ea8c3ac3c14ba291ad61",
+        "android_client_info": {
+          "package_name": "com.example.chatbot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "323780106548-j8i9ia9r1kpchjnv4qm4jnu6s6n51ajk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chatbot",
+            "certificate_hash": "a23904cc10a5f303e6cb1df877a9ab37122b8c64"
+          }
+        },
+        {
+          "client_id": "323780106548-trbb4so7m8cdd3iblj3l1dt6h29nc2ig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLY4iE2SdM6U2NqMi2CMb2KLlyXaGnSzg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "323780106548-trbb4so7m8cdd3iblj3l1dt6h29nc2ig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
