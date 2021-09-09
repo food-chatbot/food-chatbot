@@ -1,26 +1,39 @@
 package com.example.chatbot;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
     DrawerLayout drawerLayout;
-    View navigationView;
+    NavigationView navigationView;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 파이어베이스 관련 작업들
+
+    private String TAG = "MainActivity";
+    private long mBackWait = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.naviView);
+        navigationView.setNavigationItemSelectedListener(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24);
@@ -63,5 +77,61 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //네비바 메뉴들 누를 때
+    public boolean onNavigationItemSelected(@NonNull MenuItem item){
+        int id = item.getItemId();
+
+        if(id == R.id.nav_logout){ // 로그아웃
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(MainActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_Withdrawal){ // 회원탈퇴
+            user.delete().addOnCompleteListener(new OnCompleteListener<Void>(){
+                @Override
+                public void onComplete(@NonNull Task<Void> task){
+                    if (task.isSuccessful()){
+                        Log.d(TAG, "User account deleted.");
+                        Toast.makeText(MainActivity.this, "회원탈퇴", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
+                    }
+                }
+            });
+        }
+        return true;
+    }
+
+    // MainActivity에서 뒤로가기 두 번 누르면 종료
+    @Override
+    public void onBackPressed(){
+        if(System.currentTimeMillis() - mBackWait > 2000){
+            mBackWait = System.currentTimeMillis();
+            Toast.makeText(this, "\'뒤로\' 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        } else{
+            ActivityCompat.finishAffinity(this);
+            System.exit(0);
+        }
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

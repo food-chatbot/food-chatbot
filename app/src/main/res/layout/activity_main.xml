@@ -8,16 +8,6 @@
     android:id="@+id/drawerLayout"
     tools:context=".MainActivity">
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/naviView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/white"
-        app:headerLayout="@layout/main_menu"
-        app:menu="@menu/menu_list"/>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,8 +21,18 @@
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-
     </LinearLayout>
+
+    <!-- 리니어레이아웃보다 네비게이션바가 위에 있으면 네비바 안의 메뉴들을 누를 수가 없다는 글을 봐서 위치 옮겼습니다.
+     글 링크 https://itstudy-mary.tistory.com/202 -->
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/naviView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        app:headerLayout="@layout/main_menu"
+        app:menu="@menu/menu_list"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
