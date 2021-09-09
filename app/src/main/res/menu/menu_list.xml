@@ -3,22 +3,36 @@
 
     <group android:checkableBehavior="single">
 
-    <item
-        android:id="@+id/nav_home"
-        android:title="홈"
-        />
-    <!--android:icon="@drawable/ic_baseline_access_time_24"-->
-    <item
-        android:id="@+id/nav_tip"
-        android:title="건강tip" />
+        <item
+            android:id="@+id/nav_home"
+            android:title="홈"
+            />
+        <!--android:icon="@drawable/ic_baseline_access_time_24"-->
+        <item
+            android:id="@+id/nav_tip"
+            android:title="건강tip" />
 
-    <item
-        android:id="@+id/nav_diary"
-        android:title="다이어리" />
+        <item
+            android:id="@+id/nav_diary"
+            android:title="다이어리" />
 
-    <item
-        android:id="@+id/nav_gallery"
-        android:title="사진첩" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:title="사진첩" />
 
     </group>
+
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:title="로그아웃" />
+            <item
+                android:id="@+id/nav_Withdrawal"
+                android:title="탈퇴하기" />
+        </menu>
+    </item>
+
+
 </menu>
