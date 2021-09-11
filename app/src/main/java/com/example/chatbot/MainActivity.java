@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
