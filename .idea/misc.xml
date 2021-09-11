@@ -20,12 +20,16 @@
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/drawable/rectangle_263.xml" value="0.17592592592592593" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/drawable/rectangle_264.xml" value="0.17592592592592593" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/activity_main.xml" value="0.24374420759962928" />
-        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/diary.xml" value="0.16388044579533942" />
+        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/chat.xml" value="0.2957427536231884" />
+        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/diary.xml" value="0.25" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/diary_view.xml" value="0.16388044579533942" />
+        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/fragment_tip.xml" value="0.17844202898550723" />
+        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/gallery.xml" value="0.17844202898550723" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/intro.xml" value="0.21458333333333332" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/login.xml" value="0.25" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/main_menu.xml" value="0.16388044579533942" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/settings.xml" value="0.16388044579533942" />
+        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/tip.xml" value="0.16388044579533942" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/menu/menu_list.xml" value="0.33" />
       </map>
     </option>

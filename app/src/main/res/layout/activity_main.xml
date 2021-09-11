@@ -23,6 +23,25 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/main_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- 로그인 후 첫 화면을 ChatFragment로 하기 위해서 -->
+        <fragment
+            android:name="com.example.chatbot.ChatFragment"
+            android:id="@+id/fragment_place"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </fragment>
+
+    </FrameLayout>
+
     <!-- 리니어레이아웃보다 네비게이션바가 위에 있으면 네비바 안의 메뉴들을 누를 수가 없다는 글을 봐서 위치 옮겼습니다.
      글 링크 https://itstudy-mary.tistory.com/202 -->
 

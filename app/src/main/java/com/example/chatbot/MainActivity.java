@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.graphics.drawable.Icon;
@@ -25,12 +26,21 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 파이어베이스 관련 작업들
+
+    private FragmentManager fm;
+    private FragmentTransaction ft;
+    private TipFragment tipfragment;
+    private DiaryFragment diaryfragment;
+    private GalleryFragment galleryfragment;
+    private ChatFragment chatfragment;
+
 
     private String TAG = "MainActivity";
     private long mBackWait = 0;
@@ -47,11 +57,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.naviView);
         navigationView.setNavigationItemSelectedListener(this);
 
+        tipfragment = new TipFragment();
+        diaryfragment = new DiaryFragment();
+        galleryfragment = new GalleryFragment();
+        chatfragment = new ChatFragment();
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24);
 
         getSupportActionBar().setTitle("챗봇");
-
 
     }
 
@@ -80,8 +95,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //네비바 메뉴들 누를 때
     public boolean onNavigationItemSelected(@NonNull MenuItem item){
         int id = item.getItemId();
-
-        if(id == R.id.nav_logout){ // 로그아웃
+        if(id == R.id.nav_home) { // 채팅화면
+            setFrag(0);
+        } else if (id == R.id.nav_tip){ // 팁화면
+            setFrag(1);
+        } else if (id == R.id.nav_diary){ // 다이어리화면
+            setFrag(2);
+        } else if (id == R.id.nav_gallery){ // 사진첩화면
+            setFrag(3);
+        } else if(id == R.id.nav_logout){ // 로그아웃
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(MainActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -100,6 +122,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
         }
         return true;
+    }
+
+    // 프래그먼트들 화면 전환 함수
+    private void setFrag(int n){
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
+
+        switch(n) {
+            case 0:
+                ft.replace(R.id.main_frame, chatfragment);
+                ft.commit();
+                break;
+            case 1:
+                ft.replace(R.id.main_frame, tipfragment);
+                ft.commit();
+                break;
+            case 2:
+                ft.replace(R.id.main_frame, diaryfragment);
+                ft.commit();
+                break;
+            case 3:
+                ft.replace(R.id.main_frame, galleryfragment);
+                ft.commit();
+                break;
+        }
     }
 
     // MainActivity에서 뒤로가기 두 번 누르면 종료
