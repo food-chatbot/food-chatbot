@@ -16,6 +16,7 @@
         <entry key="..\:/GURU2/foodchatbot/app/src/main/res/layout/intro.xml" value="0.36614583333333334" />
         <entry key="..\:/GURU2/foodchatbot/app/src/main/res/layout/main_menu.xml" value="0.2046875" />
         <entry key="..\:/GURU2/foodchatbot/app/src/main/res/layout/menu.xml" value="0.36614583333333334" />
+        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/drawable/ic_baseline_dehaze_24.xml" value="0.3764102564102564" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/drawable/intro.xml" value="0.17592592592592593" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/drawable/rectangle_263.xml" value="0.17592592592592593" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/drawable/rectangle_264.xml" value="0.17592592592592593" />
@@ -29,8 +30,13 @@
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/login.xml" value="0.25" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/main_menu.xml" value="0.16388044579533942" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/settings.xml" value="0.16388044579533942" />
+        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/sub_todo.xml" value="0.25" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/tip.xml" value="0.16388044579533942" />
+        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/layout/todo_item.xml" value="0.36614583333333334" />
         <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/menu/menu_list.xml" value="0.33" />
+        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/menu/menu_toolbar.xml" value="0.22" />
+        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/menu/menu_toolbar_chat.xml" value="0.19114583333333332" />
+        <entry key="..\:/Guru/food-chatbot_google/app/src/main/res/menu/menu_toolbar_diary.xml" value="0.19114583333333332" />
       </map>
     </option>
   </component>

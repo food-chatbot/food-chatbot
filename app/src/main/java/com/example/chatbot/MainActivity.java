@@ -1,7 +1,6 @@
 package com.example.chatbot;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -11,13 +10,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
-import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     private GalleryFragment galleryfragment;
     private ChatFragment chatfragment;
 
+    int mBeginner = 0; // 네비바 메뉴에 따라 툴바를 변경하기 위한 변수.
 
     private String TAG = "MainActivity";
     private long mBackWait = 0;
@@ -63,8 +61,8 @@ public class MainActivity extends AppCompatActivity
         chatfragment = new ChatFragment();
 
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24); // 뒤로가기 버튼의 이미지를 햄버거바로 설정
 
         getSupportActionBar().setTitle("챗봇");
 
@@ -75,8 +73,14 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         //return super.onCreateOptionsMenu(menu);
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_list, menu);
-        toolbar.getMenu().clear(); //툴바에 옵션메뉴 안 나타나게
+
+        if(mBeginner==0){ // 네비바에서 챗봇메뉴 (홈메뉴)가 눌리면
+            toolbar.getMenu().clear(); // 툴바 내용 안 보이게.
+            menuInflater.inflate(R.menu.menu_toolbar_chat, menu);
+        } else { // 네비바에서 그 외의 메뉴가 눌리면
+            toolbar.getMenu().clear();
+        }
+
         return true;
     }
 
@@ -132,18 +136,30 @@ public class MainActivity extends AppCompatActivity
 
         switch(n) {
             case 0:
+                getSupportActionBar().setTitle("챗봇");
+                mBeginner = 0;
+                invalidateOptionsMenu(); // onCreateOptionsMenu 호출하는 함수
                 ft.replace(R.id.main_frame, chatfragment);
                 ft.commit();
                 break;
             case 1:
+                getSupportActionBar().setTitle("건강tip");
+                mBeginner = 1;
+                invalidateOptionsMenu();
                 ft.replace(R.id.main_frame, tipfragment);
                 ft.commit();
                 break;
             case 2:
+                getSupportActionBar().setTitle("다이어리");
+                mBeginner = 1;
+                invalidateOptionsMenu();
                 ft.replace(R.id.main_frame, diaryfragment);
                 ft.commit();
                 break;
             case 3:
+                getSupportActionBar().setTitle("사진첩");
+                mBeginner = 1;
+                invalidateOptionsMenu();
                 ft.replace(R.id.main_frame, galleryfragment);
                 ft.commit();
                 break;
