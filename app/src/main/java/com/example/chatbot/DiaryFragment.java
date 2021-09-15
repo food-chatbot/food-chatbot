@@ -9,8 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -25,6 +27,9 @@ public class DiaryFragment extends Fragment {
     private View view;
     private Button btnDiaryAddTodo;
     LinearLayout diaryTodoLayout;
+    CalendarView calendarView;
+    TextView date_tv, diary_tv;
+
 
     @Nullable
     @Override
@@ -32,8 +37,23 @@ public class DiaryFragment extends Fragment {
         view = inflater.inflate(R.layout.diary, container, false);
         setHasOptionsMenu(true);
 
+        calendarView = view.findViewById(R.id.calendarView);
+        date_tv = view.findViewById(R.id.date_tv);
+        diary_tv = view.findViewById(R.id.diary_tv);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() // 날짜 선택 이벤트
+        {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth)
+            {
+                String date = year + "년" + (month + 1) + "월" + dayOfMonth + "일";
+                date_tv.setText(date); // 선택한 날짜로 설정
+
+            }
+        });
         return view;
     }
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) { // 다이어리 프래그먼트의 toolbar를 menu_toolbar_diary로 지정.
@@ -46,6 +66,7 @@ public class DiaryFragment extends Fragment {
         switch(item.getItemId()){
             case R.id.action_add:
                 Toast.makeText(getActivity(), "추가 버튼", Toast.LENGTH_SHORT).show();
+
                 break;
         }
         return super.onOptionsItemSelected(item);
