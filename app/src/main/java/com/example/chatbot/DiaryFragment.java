@@ -1,6 +1,7 @@
 package com.example.chatbot;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class DiaryFragment extends Fragment {
@@ -41,12 +44,19 @@ public class DiaryFragment extends Fragment {
         date_tv = view.findViewById(R.id.date_tv);
         diary_tv = view.findViewById(R.id.diary_tv);
 
+        Calendar cal = Calendar.getInstance();
+        int cYear = cal.get(Calendar.YEAR);
+        int cMonth = cal.get(Calendar.MONTH);
+        int cDay = cal.get(Calendar.DAY_OF_MONTH);
+
+        date_tv.setText(cYear+"년 "+(cMonth+1)+"월 "+cDay+"일"); //오늘 날짜 date_tv에 출력
+
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() // 날짜 선택 이벤트
         {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth)
             {
-                String date = year + "년" + (month + 1) + "월" + dayOfMonth + "일";
+                String date = year + "년 " + (month + 1) + "월 " + dayOfMonth + "일";
                 date_tv.setText(date); // 선택한 날짜로 설정
 
             }

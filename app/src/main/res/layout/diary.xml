@@ -15,8 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:orientation="vertical">
 
             <CalendarView
                 android:id="@+id/calendarView"
@@ -24,20 +23,33 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"/>
 
-            <TextView
-                android:id="@+id/date_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:lines="1"/>
+            <LinearLayout
+                android:layout_width="331dp"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:background="@drawable/border"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/diary_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:lines="5"
-                android:background="@color/white"/>
+                <TextView
+                    android:id="@+id/date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:textColor="#EC3B09"
+                    android:textStyle="bold"
+                    android:lines="1"/>
+
+                <TextView
+                    android:id="@+id/diary_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:lines="5"
+                    android:text="작성한 일기가 없습니다." />
+            </LinearLayout>
         </LinearLayout>
+
+
     </ScrollView>
 </LinearLayout>
     <!--
