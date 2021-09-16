@@ -35,7 +35,7 @@ public class DiaryFragment extends Fragment {
     LinearLayout diaryTodoLayout;
     CalendarView calendarView;
     TextView date_tv, diary_tv;
-
+    LinearLayout preDiary;
 
     @Nullable
     @Override
@@ -46,6 +46,7 @@ public class DiaryFragment extends Fragment {
         calendarView = view.findViewById(R.id.calendarView);
         date_tv = view.findViewById(R.id.date_tv);
         diary_tv = view.findViewById(R.id.diary_tv);
+        preDiary = view.findViewById(R.id.preDiary);
 
         Calendar cal = Calendar.getInstance();
         int cYear = cal.get(Calendar.YEAR);
@@ -66,10 +67,10 @@ public class DiaryFragment extends Fragment {
         });
 
 
-        diary_tv.setOnClickListener(new View.OnClickListener() {
+        preDiary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),DiaryViewEdit.class);
+                Intent intent = new Intent(getActivity(),DiaryView.class);
 
                 startActivity(intent);
 

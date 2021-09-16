@@ -43,8 +43,6 @@ public class DiaryView extends AppCompatActivity {
 
 
 
-
-
         //일기가 있다면
         if(postID>0){
             dbHelper = new DBHelper(this);
