@@ -1,18 +1,21 @@
 package com.example.chatbot;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 
 import java.util.Calendar;
 
-public class DiaryEdit extends AppCompatActivity {
+public class DiaryView extends AppCompatActivity {
 
     Toolbar toolbar;
 
@@ -40,5 +43,21 @@ public class DiaryEdit extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_toolbar_diary_edit, menu);
         return true;
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+
+            case R.id.action_edit:  //수정 버튼 누르면 diary_write로 넘어가게
+                Intent intent = new Intent(getApplicationContext(),DiaryViewEdit.class);
+                startActivity(intent);
+                break;
+            case R.id.action_delete:
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

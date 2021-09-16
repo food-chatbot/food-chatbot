@@ -67,7 +67,6 @@ public class DiaryFragment extends Fragment {
         return view;
     }
 
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) { // 다이어리 프래그먼트의 toolbar를 menu_toolbar_diary로 지정.
         super.onCreateOptionsMenu(menu, inflater);
@@ -80,15 +79,15 @@ public class DiaryFragment extends Fragment {
         switch(item.getItemId()){
             case R.id.action_add:
                 Toast.makeText(getActivity(), "추가 버튼", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(),DiaryEdit.class);
+                Intent intent = new Intent(getActivity(),DiaryView.class);
                 startActivity(intent);
                 break;
 
             case R.id.action_delete:
-                //빈 글이 아니라면 확인메시지 출력 후 삭제
-                //빈 글이라면 삭제할 일기가 없습니다.
+                Toast.makeText(getActivity(), "삭제버튼", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

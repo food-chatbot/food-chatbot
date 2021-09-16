@@ -22,7 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DiaryEdit"></activity>
+        <activity android:name=".DiaryView"></activity>
+        <activity android:name=".DiaryViewEdit"></activity>
     </application>
 
 </manifest>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize">
 
     <ImageView
         android:id="@+id/diary_back_button"
@@ -38,6 +39,7 @@
             android:lines="5"
             android:text="작성한 일기가 없습니다." />
     </LinearLayout>
+
 
     <ImageView
         android:id="@+id/imageView"
