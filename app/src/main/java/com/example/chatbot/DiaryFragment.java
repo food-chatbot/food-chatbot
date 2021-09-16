@@ -64,6 +64,17 @@ public class DiaryFragment extends Fragment {
 
             }
         });
+
+
+        diary_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),DiaryViewEdit.class);
+
+                startActivity(intent);
+
+            }
+        });
         return view;
     }
 

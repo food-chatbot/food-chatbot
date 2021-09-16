@@ -1,6 +1,7 @@
 package com.example.chatbot;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,11 @@ import java.util.Calendar;
 public class DiaryView extends AppCompatActivity {
 
     Toolbar toolbar;
+    DBHelper dbHelper;
+    SQLiteDatabase sqlitedb;
+    Integer postID = -1;
+    Integer newDate = 0;
+    Intent intent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +40,18 @@ public class DiaryView extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
         getSupportActionBar().setTitle(cYear+"년 "+(cMonth+1)+"월 "+cDay+"일");
+
+
+
+
+
+        //일기가 있다면
+        if(postID>0){
+            dbHelper = new DBHelper(this);
+            //loadDiary();    일기를 불러옴옴
+       }
+
+
 
     }
 
