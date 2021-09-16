@@ -1,5 +1,6 @@
 package com.example.chatbot;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import android.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -71,12 +74,19 @@ public class DiaryFragment extends Fragment {
         inflater.inflate(R.menu.menu_toolbar_diary, menu);
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) { // 다이어리 추가 버튼을 눌렀을 때
         switch(item.getItemId()){
             case R.id.action_add:
                 Toast.makeText(getActivity(), "추가 버튼", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(),DiaryEdit.class);
+                startActivity(intent);
+                break;
 
+            case R.id.action_delete:
+                //빈 글이 아니라면 확인메시지 출력 후 삭제
+                //빈 글이라면 삭제할 일기가 없습니다.
                 break;
         }
         return super.onOptionsItemSelected(item);

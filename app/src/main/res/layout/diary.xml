@@ -25,7 +25,7 @@
 
             <LinearLayout
                 android:layout_width="331dp"
-                android:layout_height="130dp"
+                android:layout_height="85dp"
                 android:layout_gravity="center"
                 android:background="@drawable/border"
                 android:orientation="vertical">
@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:lines="5"
+                    android:lines="3"
                     android:text="작성한 일기가 없습니다." />
             </LinearLayout>
         </LinearLayout>
