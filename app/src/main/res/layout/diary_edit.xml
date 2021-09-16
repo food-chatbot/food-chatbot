@@ -24,36 +24,38 @@
     </LinearLayout>
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/diary_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/diary_bnv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        android:layout_width="421dp"
+        android:layout_height="397dp">
 
         <ImageView
-            android:id="@+id/image_preview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:maxHeight="400dp" />
+            android:id="@+id/imageView3"
+            android:layout_width="330dp"
+            android:layout_height="330dp"
+            android:maxWidth="360dp"
+            android:maxHeight="360dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.326"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.542"
+            tools:src="@tools:sample/avatars" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <EditText
-            android:id="@+id/diary_et"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:ellipsize="end"
-            android:gravity="top"
-            android:hint="일기를 작성하세요" />
-
-    </LinearLayout>
-
-
+    <EditText
+        android:id="@+id/diary_et"
+        android:layout_width="360dp"
+        android:layout_height="144dp"
+        android:layout_marginStart="22dp"
+        android:ellipsize="end"
+        android:gravity="top"
+        android:hint="일기를 작성하세요"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </LinearLayout>
