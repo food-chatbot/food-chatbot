@@ -58,6 +58,7 @@ public class DiaryFragment extends Fragment {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() // 날짜 선택 이벤트
         {
             @Override
+
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth)
             {
                 String date = year + "년 " + (month + 1) + "월 " + dayOfMonth + "일";

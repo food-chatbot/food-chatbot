@@ -67,6 +67,9 @@ public class DiaryView extends AppCompatActivity {
 
         switch (id){
 
+            case android.R.id.home : //뒤로가기
+                finish();
+                return true;
             case R.id.action_edit:  //수정 버튼 누르면 diary_write로 넘어가게
                 Intent intent = new Intent(getApplicationContext(),DiaryViewEdit.class);
                 startActivity(intent);
@@ -76,4 +79,5 @@ public class DiaryView extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
