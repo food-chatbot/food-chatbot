@@ -92,7 +92,7 @@ public class DiaryFragment extends Fragment {
         switch(item.getItemId()){
             case R.id.action_add:
                 Toast.makeText(getActivity(), "추가 버튼", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(),DiaryView.class);
+                Intent intent = new Intent(getActivity(),DiaryViewEdit.class);
                 startActivity(intent);
                 break;
 
