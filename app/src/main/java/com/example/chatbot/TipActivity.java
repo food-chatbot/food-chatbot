@@ -15,10 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import com.rd.PageIndicatorView;
+
+
 public class TipActivity extends AppCompatActivity {
 
     ViewPager pager;
     Toolbar toolbar;
+    PageIndicatorView pg;
 
     @Override
 
@@ -33,24 +37,19 @@ public class TipActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("건강한 식생활");
 
+
+        pg = findViewById(R.id.page_indicator_view);
+
+
         pager= (ViewPager)findViewById(R.id.tipViewPager);
 
-
-        //ViewPager에 설정할 Adapter 객체 생성
-
-        //ListView에서 사용하는 Adapter와 같은 역할.
-
-        //다만. ViewPager로 스크롤 될 수 있도록 되어 있다는 것이 다름
-
-        //PagerAdapter를 상속받은 CustomAdapter 객체 생성
-
-        //CustomAdapter에게 LayoutInflater 객체 전달
 
         TipAdapter adapter= new TipAdapter(getLayoutInflater());
 
 
         //ViewPager에 Adapter 설정
 
+        pg.setViewPager(pager);
         pager.setAdapter(adapter);
 
 
