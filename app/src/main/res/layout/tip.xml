@@ -4,17 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".TipFragment">
 
-    <TextView
-        android:id="@+id/textViewTip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:text="TipFragment"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="71dp">
+
+            <ImageView
+                android:id="@+id/tip1"
+                android:layout_width="328dp"
+                android:layout_height="130dp"
+                android:background="@drawable/tip_border"
+                android:layout_marginBottom="21dp"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:id="@+id/tip2"
+                android:layout_width="328dp"
+                android:layout_height="130dp"
+                android:background="@drawable/tip_border"
+                android:layout_marginBottom="21dp"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:id="@+id/tip3"
+                android:layout_width="328dp"
+                android:layout_height="130dp"
+                android:background="@drawable/tip_border"
+                android:layout_marginBottom="21dp"
+                android:layout_gravity="center"/>
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
 </LinearLayout>

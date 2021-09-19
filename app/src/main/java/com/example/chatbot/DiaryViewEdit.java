@@ -17,7 +17,7 @@ public class DiaryViewEdit extends AppCompatActivity {
 
 
     Toolbar toolbar;
-    static Button btnWrite;
+    Button btnWrite;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
