@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="71dp">
+            android:layout_marginTop="15dp">
 
             <ImageView
                 android:id="@+id/tip1"
@@ -42,7 +42,21 @@
                 android:layout_marginBottom="21dp"
                 android:layout_gravity="center"/>
 
+            <ImageView
+                android:id="@+id/tip4"
+                android:layout_width="328dp"
+                android:layout_height="130dp"
+                android:background="@drawable/tip_border"
+                android:layout_marginBottom="21dp"
+                android:layout_gravity="center"/>
 
+            <ImageView
+                android:id="@+id/tip5"
+                android:layout_width="328dp"
+                android:layout_height="130dp"
+                android:background="@drawable/tip_border"
+                android:layout_marginBottom="21dp"
+                android:layout_gravity="center"/>
 
         </LinearLayout>
 
