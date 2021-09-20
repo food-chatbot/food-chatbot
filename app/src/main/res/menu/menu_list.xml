@@ -6,19 +6,23 @@
         <item
             android:id="@+id/nav_home"
             android:title="홈"
+            android:icon="@drawable/home"
             />
         <!--android:icon="@drawable/ic_baseline_access_time_24"-->
         <item
             android:id="@+id/nav_tip"
-            android:title="건강tip" />
+            android:title="건강tip"
+            android:icon="@drawable/tip"/>
 
         <item
             android:id="@+id/nav_diary"
-            android:title="다이어리" />
+            android:title="다이어리"
+            android:icon="@drawable/diary"/>
 
         <item
             android:id="@+id/nav_gallery"
-            android:title="사진첩" />
+            android:title="사진첩"
+            android:icon="@drawable/photo"/>
 
     </group>
 
@@ -27,10 +31,10 @@
         <menu>
             <item
                 android:id="@+id/nav_logout"
-                android:title="로그아웃" />
+                android:title="로그아웃"/>
             <item
                 android:id="@+id/nav_Withdrawal"
-                android:title="탈퇴하기" />
+                android:title="탈퇴하기"/>
         </menu>
     </item>
 

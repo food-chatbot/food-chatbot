@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
         openDatabase();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24); // 뒤로가기 버튼의 이미지를 햄버거바로 설정
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.hamburger); // 뒤로가기 버튼의 이미지를 햄버거바로 설정
 
         getSupportActionBar().setTitle("챗봇");
 
