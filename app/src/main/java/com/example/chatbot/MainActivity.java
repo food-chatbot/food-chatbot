@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity
     private GalleryFragment galleryfragment;
     private ChatFragment chatfragment;
 
+    public static NoteDatabase noteDatabase = null;
+
     int mBeginner = 0; // 네비바 메뉴에 따라 툴바를 변경하기 위한 변수.
 
     private String TAG = "MainActivity";
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         galleryfragment = new GalleryFragment();
         chatfragment = new ChatFragment();
 
+        openDatabase();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24); // 뒤로가기 버튼의 이미지를 햄버거바로 설정
@@ -166,6 +170,31 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void openDatabase() {
+        // open database
+        if (noteDatabase != null) {
+            noteDatabase.close();
+            noteDatabase = null;
+        }
+
+        noteDatabase = NoteDatabase.getInstance(this);
+        boolean isOpen = noteDatabase.open();
+        if (isOpen) {
+            Log.d(TAG, "Note database is open.");
+        } else {
+            Log.d(TAG, "Note database is not open.");
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (noteDatabase != null) {
+            noteDatabase.close();
+            noteDatabase = null;
+        }
+    }
+
     // MainActivity에서 뒤로가기 두 번 누르면 종료
     @Override
     public void onBackPressed(){
@@ -179,23 +208,3 @@ public class MainActivity extends AppCompatActivity
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
