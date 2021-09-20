@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -60,7 +61,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
     }
+    // onStart. 유저가 앱에 이미 구글 로그인을 했는지 확인
+    public void  onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
+        if(account!=null){
+            toMainActivity(auth.getCurrentUser());
+        }
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // 구글 로그인 인증을 요청 했을 때 결과 값을 되돌려 받는 곳
         super.onActivityResult(requestCode, resultCode, data);
@@ -91,6 +101,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         }
                     }
                 });
+    }
+
+    // toMainActivity
+    private void toMainActivity(FirebaseUser user) {
+        if (user != null) { // MainActivity 로 이동
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
