@@ -25,7 +25,12 @@
         </activity>
         <activity android:name=".DiaryView"></activity>
         <activity android:name=".DiaryViewEdit"></activity>
-        <activity android:name=".TipActivity"></activity>
+        <activity android:name=".TipView.TipActivity"></activity>
+        <activity android:name=".TipView.Tip2Activity"></activity>
+        <activity android:name=".TipView.Tip3Activity"></activity>
+        <activity android:name=".TipView.Tip4Activity"></activity>
+        <activity android:name=".TipView.Tip5Activity"></activity>
+
     </application>
 
 </manifest>

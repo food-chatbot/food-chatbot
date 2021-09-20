@@ -1,28 +1,25 @@
-package com.example.chatbot;
+package com.example.chatbot.TipView;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.chatbot.R;
 import com.rd.PageIndicatorView;
 
 
-public class TipActivity extends AppCompatActivity {
+public class Tip5Activity extends AppCompatActivity {
 
     ViewPager pager;
     Toolbar toolbar;
     PageIndicatorView pg;
+
 
     @Override
 
@@ -35,8 +32,7 @@ public class TipActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("건강한 식생활");
-
+        getSupportActionBar().setTitle("팁5");
 
         pg = findViewById(R.id.page_indicator_view);
 
@@ -44,14 +40,13 @@ public class TipActivity extends AppCompatActivity {
         pager= (ViewPager)findViewById(R.id.tipViewPager);
 
 
-        TipAdapter adapter= new TipAdapter(getLayoutInflater());
+        Tip5Adapter adapter= new Tip5Adapter(getLayoutInflater());
 
 
         //ViewPager에 Adapter 설정
 
         pg.setViewPager(pager);
         pager.setAdapter(adapter);
-
 
 
     }
@@ -70,17 +65,13 @@ public class TipActivity extends AppCompatActivity {
     }
     //onClick속성이 지정된 View를 클릭했을때 자동으로 호출되는 메소드
 
-    /*public void mOnClick(View v){
+    public void onClick(View v){
 
-
-
-        int position;
-
-
+        int position = 1;
 
         switch( v.getId() ){
 
-            case R.id.btn_previous://이전버튼 클릭
+            case R.id.btnPrevious://이전버튼 클릭
 
 
 
@@ -104,7 +95,7 @@ public class TipActivity extends AppCompatActivity {
 
 
 
-            case R.id.btn_next://다음버튼 클릭
+            case R.id.btnNext://다음버튼 클릭
 
 
 
@@ -119,7 +110,6 @@ public class TipActivity extends AppCompatActivity {
                 //첫번째 파라미터: 설정할 현재 위치
 
                 //두번째 파라미터: 변경할 때 부드럽게 이동하는가? false면 팍팍 바뀜
-
                 pager.setCurrentItem(position+1,true);
 
 
@@ -131,5 +121,5 @@ public class TipActivity extends AppCompatActivity {
 
 
     }
-*/
+
 }

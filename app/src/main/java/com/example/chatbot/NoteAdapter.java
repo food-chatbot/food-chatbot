@@ -72,7 +72,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
             btnDiaryEditTodoComplition = itemView.findViewById(R.id.btnDiaryEditTodoComplition);
             todoCardView = itemView.findViewById(R.id.todoCardView);
 
-            /*
+
             btnDiaryCheckTodo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -88,7 +88,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
                 }
             });
-             */
+
 
 
             // 투두 수정 버튼

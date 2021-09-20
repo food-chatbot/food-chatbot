@@ -1,4 +1,4 @@
-package com.example.chatbot;
+package com.example.chatbot.TipView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,11 +8,15 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-public class TipAdapter extends PagerAdapter {
+import com.example.chatbot.R;
+
+import java.util.ArrayList;
+
+public class Tip2Adapter extends PagerAdapter {
 
     LayoutInflater inflater;
 
-    public TipAdapter(LayoutInflater inflater) {
+    public Tip2Adapter(LayoutInflater inflater) {
 
         //전달 받은 LayoutInflater를 멤버변수로 전달
         this.inflater=inflater;
@@ -57,7 +61,7 @@ public class TipAdapter extends PagerAdapter {
         //ImageView에 현재 position 번째에 해당하는 이미지를 보여주기 위한 작업
         //현재 position에 해당하는 이미지를 setting
 
-        img.setImageResource(R.drawable.brightness_1+position); //임의로 이미지 넣었음음
+        img.setImageResource(R.drawable.brightness_1+position); //임의로 이미지 넣었음
 
         //ViewPager에 만들 낸 View 추가
 
