@@ -66,10 +66,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
-        if(account!=null){
-            toMainActivity(auth.getCurrentUser());
-        }
-
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) { // 구글 로그인 인증을 요청 했을 때 결과 값을 되돌려 받는 곳
@@ -103,14 +99,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 });
     }
 
-    // toMainActivity
-    private void toMainActivity(FirebaseUser user) {
-        if (user != null) { // MainActivity 로 이동
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

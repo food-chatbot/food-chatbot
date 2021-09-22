@@ -41,7 +41,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         Note item = items.get(position);
         holder.setItem(item);
         holder.setLayout();
-
     }
 
     @Override
