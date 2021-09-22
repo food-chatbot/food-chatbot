@@ -77,7 +77,7 @@ public class ChatFragment extends Fragment implements BotReply {
         });
 
         setUpBot();
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
 
 
