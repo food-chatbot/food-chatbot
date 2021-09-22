@@ -4,8 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ChatFragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -56,5 +60,5 @@
         app:layout_constraintBottom_toTopOf="@id/constraintLayout"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="1dp" />
-
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
