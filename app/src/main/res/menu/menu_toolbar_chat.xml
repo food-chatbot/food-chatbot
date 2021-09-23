@@ -6,6 +6,7 @@
     <item
         android:id="@+id/action_explanation"
         android:title="설명"
+        android:icon="@drawable/info_button"
         app:showAsAction="ifRoom"/>
 
 </menu>
