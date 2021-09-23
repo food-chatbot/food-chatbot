@@ -23,22 +23,16 @@ public class TipAdapter extends PagerAdapter {
 
     }
 
-    //PagerAdapter가 가지고 잇는 View의 개수를 리턴
     //보통 보여줘야하는 이미지 배열 데이터의 길이를 리턴
 
     @Override
 
     public int getCount() {
 
-        return 5; //이미지 개수 리턴(카드뉴스 5개)
+        return 4; //이미지 개수 리턴
 
     }
 
-
-    //ViewPager가 현재 보여질 Item(View객체)를 생성할 필요가 있는 때 자동으로 호출
-    //쉽게 말해, 스크롤을 통해 현재 보여져야 하는 View를 만들어냄.
-    //첫번째 파라미터 : ViewPager
-    //두번째 파라미터 : ViewPager가 보여줄 View의 위치(가장 처음부터 0,1,2,3...)
 
     @Override
 
@@ -47,7 +41,6 @@ public class TipAdapter extends PagerAdapter {
         View view=null;
 
         //새로운 View 객체를 Layoutinflater를 이용해서 생성
-        //만들어질 View의 설계는 res폴더>>layout폴더>>viewpater_childview.xml 레이아웃 파일 사용
 
         view= inflater.inflate(R.layout.tip_viewpager, null);
 
@@ -61,7 +54,7 @@ public class TipAdapter extends PagerAdapter {
         //ImageView에 현재 position 번째에 해당하는 이미지를 보여주기 위한 작업
         //현재 position에 해당하는 이미지를 setting
 
-        img.setImageResource(R.drawable.brightness_1+position); //임의로 이미지 넣었음
+        img.setImageResource(R.drawable.hfood1+position);
 
         //ViewPager에 만들 낸 View 추가
 

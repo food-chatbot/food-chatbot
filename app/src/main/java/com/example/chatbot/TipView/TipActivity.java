@@ -32,7 +32,7 @@ public class TipActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("건강한 식생활");
+        getSupportActionBar().setTitle("건강기능식품");
 
         pg = findViewById(R.id.page_indicator_view);
 

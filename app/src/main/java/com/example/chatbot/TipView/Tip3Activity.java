@@ -32,7 +32,7 @@ public class Tip3Activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("팁3");
+        getSupportActionBar().setTitle("비만 예방");
 
         pg = findViewById(R.id.page_indicator_view);
 

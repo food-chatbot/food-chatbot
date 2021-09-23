@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TipView.TipActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,6 +30,7 @@
         android:orientation="vertical">
 
         <androidx.viewpager.widget.ViewPager
+            android:layout_marginTop="?attr/actionBarSize"
             android:id="@+id/tipViewPager"
             android:layout_height="500dp"
             android:layout_width="360dp"/>
@@ -38,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -49,7 +51,8 @@
             app:piv_unselectedColor="#FEE3D6"
             app:piv_viewPager="@id/tipViewPager"
             app:piv_padding="8dp"
-            app:piv_radius="6dp" />
+            app:piv_radius="6dp"
+            android:layout_marginTop="20dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -59,7 +62,7 @@
         <ImageButton
             android:id="@+id/btnPrevious"
             android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:src="@drawable/left_arrow"
             android:onClick="onClick"
             android:background="#f87332"/>
@@ -67,7 +70,7 @@
         <ImageButton
             android:id="@+id/btnNext"
             android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:src="@drawable/right_arrow"
             android:onClick="onClick"
             android:background="#f87332"/>

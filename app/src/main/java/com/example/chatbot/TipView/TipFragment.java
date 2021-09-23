@@ -26,8 +26,6 @@ public class TipFragment extends Fragment {
         tip1 = view.findViewById(R.id.tip1);
         tip2 = view.findViewById(R.id.tip2);
         tip3 = view.findViewById(R.id.tip3);
-        tip4 = view.findViewById(R.id.tip4);
-        tip5 = view.findViewById(R.id.tip5);
 
         tip1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,21 +53,6 @@ public class TipFragment extends Fragment {
             }
         });
 
-        tip4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Tip4Activity.class);
-                startActivity(intent);
-            }
-        });
-
-        tip5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Tip5Activity.class);
-                startActivity(intent);
-            }
-        });
 
         return view;
     }

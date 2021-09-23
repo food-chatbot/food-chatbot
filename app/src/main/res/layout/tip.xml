@@ -22,15 +22,14 @@
                 android:id="@+id/tip1"
                 android:layout_width="328dp"
                 android:layout_height="130dp"
-                android:background="@drawable/tip_border"
+                android:src="@drawable/hfood_banner"
                 android:layout_marginBottom="21dp"
                 android:layout_gravity="center"/>
-
             <ImageView
                 android:id="@+id/tip2"
                 android:layout_width="328dp"
                 android:layout_height="130dp"
-                android:background="@drawable/tip_border"
+                android:src="@drawable/hlife_banner"
                 android:layout_marginBottom="21dp"
                 android:layout_gravity="center"/>
 
@@ -38,25 +37,10 @@
                 android:id="@+id/tip3"
                 android:layout_width="328dp"
                 android:layout_height="130dp"
-                android:background="@drawable/tip_border"
+                android:src="@drawable/obes_prevent_banner"
                 android:layout_marginBottom="21dp"
                 android:layout_gravity="center"/>
 
-            <ImageView
-                android:id="@+id/tip4"
-                android:layout_width="328dp"
-                android:layout_height="130dp"
-                android:background="@drawable/tip_border"
-                android:layout_marginBottom="21dp"
-                android:layout_gravity="center"/>
-
-            <ImageView
-                android:id="@+id/tip5"
-                android:layout_width="328dp"
-                android:layout_height="130dp"
-                android:background="@drawable/tip_border"
-                android:layout_marginBottom="21dp"
-                android:layout_gravity="center"/>
 
         </LinearLayout>
 

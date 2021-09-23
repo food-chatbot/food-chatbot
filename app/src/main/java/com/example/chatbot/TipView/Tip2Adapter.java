@@ -61,7 +61,7 @@ public class Tip2Adapter extends PagerAdapter {
         //ImageView에 현재 position 번째에 해당하는 이미지를 보여주기 위한 작업
         //현재 position에 해당하는 이미지를 setting
 
-        img.setImageResource(R.drawable.brightness_1+position); //임의로 이미지 넣었음
+        img.setImageResource(R.drawable.hlife_1+position);
 
         //ViewPager에 만들 낸 View 추가
 
