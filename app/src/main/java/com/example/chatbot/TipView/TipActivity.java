@@ -63,63 +63,7 @@ public class TipActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    //onClick속성이 지정된 View를 클릭했을때 자동으로 호출되는 메소드
-
-    public void onClick(View v){
-
-        int position = 1;
-
-        switch( v.getId() ){
-
-            case R.id.btnPrevious://이전버튼 클릭
-
-
-
-                position=pager.getCurrentItem();//현재 보여지는 아이템의 위치를 리턴
-
-
-
-                //현재 위치(position)에서 -1 을 해서 이전 position으로 변경
-
-                //이전 Item으로 현재의 아이템 변경 설정(가장 처음이면 더이상 이동하지 않음)
-
-                //첫번째 파라미터: 설정할 현재 위치
-
-                //두번째 파라미터: 변경할 때 부드럽게 이동하는가? false면 팍팍 바뀜
-
-                pager.setCurrentItem(position-1,true);
-
-
-
-                break;
-
-
-
-            case R.id.btnNext://다음버튼 클릭
-
-
-
-                position=pager.getCurrentItem();//현재 보여지는 아이템의 위치를 리턴
-
-
-
-                //현재 위치(position)에서 +1 을 해서 다음 position으로 변경
-
-                //다음 Item으로 현재의 아이템 변경 설정(가장 마지막이면 더이상 이동하지 않음)
-
-                //첫번째 파라미터: 설정할 현재 위치
-
-                //두번째 파라미터: 변경할 때 부드럽게 이동하는가? false면 팍팍 바뀜
-                pager.setCurrentItem(position+1,true);
-
-
-
-                break;
-
-        }
-
 
 
     }
 
-}
