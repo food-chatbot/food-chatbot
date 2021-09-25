@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatbot.helpers.SendMessageInBg;
 import com.example.chatbot.interfaces.BotReply;
+import com.google.android.gms.tasks.Task;
 import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.auth.oauth2.ServiceAccountCredentials;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 public class ChatFragment extends Fragment implements BotReply {
 
@@ -46,7 +48,7 @@ public class ChatFragment extends Fragment implements BotReply {
     private SessionsClient sessionsClient;
     private SessionName sessionName;
     private String uuid = UUID.randomUUID().toString();
-    private String TAG = "mainactivity";
+    private String TAG = "ChatFragment";
 
     @Nullable
     @Override
@@ -103,7 +105,7 @@ public class ChatFragment extends Fragment implements BotReply {
 
     private void sendMessageToBot(String message) {
         QueryInput input = QueryInput.newBuilder()
-                .setText(TextInput.newBuilder().setText(message).setLanguageCode("en-US")).build();
+                .setText(TextInput.newBuilder().setText(message).setLanguageCode("ko-KR")).build();
         new SendMessageInBg(this, sessionName, sessionsClient, input).execute();
     }
 

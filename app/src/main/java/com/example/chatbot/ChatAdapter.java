@@ -11,6 +11,7 @@ import com.example.chatbot.R;
 import com.example.chatbot.Message;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
 
