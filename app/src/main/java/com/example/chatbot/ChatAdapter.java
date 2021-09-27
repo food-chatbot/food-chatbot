@@ -37,9 +37,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             holder.messageSend.setVisibility(View.GONE);
             holder.messageReceive.setText(message);
         }else {
-            holder.messageSend.setVisibility(View.VISIBLE);
-            holder.messageReceive.setVisibility(View.GONE);
-            holder.messageSend.setText(message);
+            if(message.contains("조리법")){
+                holder.messageReceive.setVisibility(View.VISIBLE);
+                holder.messageSend.setVisibility(View.GONE);
+                holder.messageReceive.setText(message);
+            } else{
+                holder.messageSend.setVisibility(View.VISIBLE);
+                holder.messageReceive.setVisibility(View.GONE);
+                holder.messageSend.setText(message);
+            }
         }
     }
 

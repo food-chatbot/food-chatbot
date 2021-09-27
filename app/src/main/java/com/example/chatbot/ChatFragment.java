@@ -1,5 +1,8 @@
 package com.example.chatbot;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,12 +30,17 @@ import com.google.cloud.dialogflow.v2.SessionsSettings;
 import com.google.cloud.dialogflow.v2.TextInput;
 import com.google.common.collect.Lists;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 
 
@@ -51,6 +59,10 @@ public class ChatFragment extends Fragment implements BotReply {
     private String uuid = UUID.randomUUID().toString();
     private String TAG = "ChatFragment";
 
+    private DBHelper helper;
+    private SQLiteDatabase db;
+    StringBuffer out_buffer = new StringBuffer();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,6 +75,9 @@ public class ChatFragment extends Fragment implements BotReply {
 
         chatAdapter = new ChatAdapter(messageList, getActivity());
         chatView.setAdapter(chatAdapter);
+
+        helper = new DBHelper(getActivity().getApplicationContext());
+        db = helper.getWritableDatabase();
 
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
@@ -152,11 +167,130 @@ public class ChatFragment extends Fragment implements BotReply {
                 messageList.add(new Message(botReply, true));
                 chatAdapter.notifyDataSetChanged();
                 Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
+                if(botReply.contains("보여드리겠습니다")) {
+                    getRecipe();
+                    String sql = "delete from recipe";
+                    db.execSQL(sql);
+                }
             }else {
                 Toast.makeText(getActivity(), "something went wrong", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(getActivity(), "failed to connect!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void getRecipe(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getXmlData();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String sql = "select id, rcp_nm, rcp_parts_dtls, manual from recipe";
+
+                        int recordCount = -1;
+                        Cursor cursor = null;
+                        try{
+                            cursor = db.rawQuery(sql,null);
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                        if(cursor!=null){
+                            recordCount = cursor.getCount();
+                            for(int i=0;i<recordCount;i++){
+                                cursor.moveToNext();
+
+                                String rsp_nm = cursor.getString(1);
+                                String rsp_parts_dtls = cursor.getString(2);
+                                String manual = cursor.getString(3);
+
+                                out_buffer.append("요리명 : " + rsp_nm + "\n\n").append("재료 : " + rsp_parts_dtls + "\n\n").append("조리법" + "\n" + manual);
+                                messageList.add(new Message(out_buffer.toString(), false));
+                                chatAdapter.notifyDataSetChanged();
+                                Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
+                                out_buffer.delete(0, out_buffer.length());
+                            }
+
+                        }
+                    }
+                });
+
+            }
+        }).start();
+    }
+
+
+
+    void getXmlData() {
+        StringBuffer buffer = new StringBuffer();
+        String rsp = "당근";
+        String location = URLEncoder.encode(rsp);
+
+        String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/1/3/RCP_PARTS_DTLS=" + location;
+
+        try {
+            URL url = new URL(queryUrl);
+            InputStream is = url.openStream();
+
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser xpp = factory.newPullParser();
+            xpp.setInput(new InputStreamReader(is, "UTF-8"));
+
+            String tag;
+            xpp.next();
+            int eventType = xpp.getEventType();
+
+            ContentValues cv = new ContentValues();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                switch (eventType) {
+
+                    case XmlPullParser.START_DOCUMENT:
+                        break;
+
+                    case XmlPullParser.END_TAG:
+                        tag = xpp.getName();
+                        if (tag.contains("row")) {
+                            cv.put("manual", buffer.toString());
+                            db.insert("recipe", null, cv);
+                        }
+                        break;
+
+                    case XmlPullParser.START_TAG:
+
+                        tag = xpp.getName();
+
+                        if (tag.equals("RCP_NM")) {
+
+                            xpp.next();
+                            cv.put("rcp_nm", xpp.getText());
+
+
+                        } else if (tag.contains("MANUAL") && !tag.contains("_")) {
+                            xpp.next();
+
+                            if (xpp.getText() != null) {
+                                buffer.append(xpp.getText());
+                                buffer.append("\n");
+                            }
+
+                        } else if (tag.equals("RCP_PARTS_DTLS")) {
+
+                            xpp.next();
+                            cv.put("rcp_parts_dtls", xpp.getText());
+
+                        }
+                        break;
+
+                }
+                eventType = xpp.next();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

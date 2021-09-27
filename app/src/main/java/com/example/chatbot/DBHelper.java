@@ -45,6 +45,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 + "_id"
                 + ")";
 
+        //레시피 테이블
+        db.execSQL("CREATE TABLE recipe(id INTEGER PRIMARY KEY AUTOINCREMENT, rcp_nm TEXT, rcp_parts_dtls TEXT, manual TEXT)");
+
     }
 
     @Override
@@ -52,6 +55,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL("DROP TABLE diary_posts;");
         db.execSQL("DROP TABLE diary_todo");
+        db.execSQL("DROP TABLE recipe");
         this.onCreate(db);
     }
 
