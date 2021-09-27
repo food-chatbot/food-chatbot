@@ -68,7 +68,7 @@ public class ChatFragment extends Fragment implements BotReply {
     String param; // url 추가 파라미터값 (재료명인지 음식명인지)
     String name; // url 추가 파라미터값 (이 재료or음식의 이름이 뭔지)
 
-    String[] ingredient_array;
+    String[] ingredient_array; // 재료들 들어갈 배열
 
     @Nullable
     @Override
@@ -97,8 +97,6 @@ public class ChatFragment extends Fragment implements BotReply {
                         different_recipe = 1;
                     }
                     if(message.contains("더보기")){
-                        //String sql = "delete from recipe";
-                        //db.execSQL(sql);
                         different_recipe++;
                     }
                     messageList.add(new Message(message, false));
@@ -151,12 +149,8 @@ public class ChatFragment extends Fragment implements BotReply {
         name = ingredient_array[1];
 
         if(msg.contains("재료")){
-            //int idx = msg.indexOf("재료");
-            //name = msg.substring(idx + 2);
             param =  "RCP_PARTS_DTLS";
         } else {
-            //int idx = msg.indexOf("음식");
-            //name = msg.substring(idx + 2);
             param ="RCP_NM";
         }
     }
@@ -190,23 +184,8 @@ public class ChatFragment extends Fragment implements BotReply {
                     @Override
                     public void run() {
 
-                        String sql = "select id, rcp_nm, rcp_parts_dtls, manual from recipe";
+                        String sql = "select rcp_nm, rcp_parts_dtls, manual from recipe";
                         if(ingredient_array.length > 2){
-
-                            /*
-                            sql += " where REGEXP_LIKE (rcp_parts_dtls, '";
-
-                            String ingredient;
-                            for(int i=1;i< ingredient_array.length;i++){
-                                ingredient=ingredient_array[i];
-                                sql += ingredient;
-                                if(i < ingredient_array.length - 1){
-                                    sql+="|";
-                                }
-                            }
-                            sql +="')";
-                            */
-
 
                             sql += " where (";
 
@@ -219,11 +198,8 @@ public class ChatFragment extends Fragment implements BotReply {
                                 }
                             }
                             sql += ")";
-
-
                         }
 
-                        int recordCount = -1;
                         Cursor cursor = null;
                         try{
                             cursor = db.rawQuery(sql,null);
@@ -232,24 +208,21 @@ public class ChatFragment extends Fragment implements BotReply {
                         }
 
                         if(cursor!=null){
-                            recordCount = cursor.getCount();
                             for(int i=0;i<different_recipe;i++) {
-                                //for(int i=0;i<recordCount;i++){
                                 cursor.moveToNext();
                             }
 
-                                String rsp_nm = cursor.getString(1);
-                                String rsp_parts_dtls = cursor.getString(2);
-                                String manual = cursor.getString(3);
-                                out_buffer.append("요리명 : " + rsp_nm + "\n\n")
-                                        .append("재료 : " + rsp_parts_dtls + "\n\n")
-                                        .append("조리법" + "\n" + manual + "\n\n")
-                                        .append("다른 레시피를 원하시면 '더보기'를 입력해주세요.");
-                                messageList.add(new Message(out_buffer.toString(), false));
-                                chatAdapter.notifyDataSetChanged();
-                                Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
-                                out_buffer.delete(0, out_buffer.length());
-                         //   }
+                            String rsp_nm = cursor.getString(0);
+                            String rsp_parts_dtls = cursor.getString(1);
+                            String manual = cursor.getString(2);
+                            out_buffer.append("요리명 : " + rsp_nm + "\n\n")
+                                    .append("재료 : " + rsp_parts_dtls + "\n\n")
+                                    .append("조리법" + "\n" + manual + "\n\n")
+                                    .append("다른 레시피를 원하시면 '더보기'를 입력해주세요.");
+                            messageList.add(new Message(out_buffer.toString(), false));
+                            chatAdapter.notifyDataSetChanged();
+                            Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
+                            out_buffer.delete(0, out_buffer.length());
                         }
                     }
                 });
@@ -265,7 +238,6 @@ public class ChatFragment extends Fragment implements BotReply {
 
         String location = URLEncoder.encode(name);
 
-        //String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/" + different_recipe + "/" + different_recipe + "/" + param + "=" + location;
         String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/" + different_recipe + "/100/" + param + "=" + location;
 
         try {
@@ -292,6 +264,7 @@ public class ChatFragment extends Fragment implements BotReply {
                         if (tag.contains("row")) {
                             cv.put("manual", buffer.toString());
                             db.insert("recipe", null, cv);
+                            buffer.delete(0, buffer.length());
                         }
                         break;
 
