@@ -63,6 +63,8 @@ public class ChatFragment extends Fragment implements BotReply {
     private SQLiteDatabase db;
     StringBuffer out_buffer = new StringBuffer();
 
+    int different_recipe; // 더보기를 입력한 횟수
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -83,6 +85,16 @@ public class ChatFragment extends Fragment implements BotReply {
             @Override public void onClick(View view) {
                 String message = editMessage.getText().toString();
                 if (!message.isEmpty()) {
+                    if(message.contains("재료") || message.contains("음식")){
+                        String sql = "delete from recipe";
+                        db.execSQL(sql);
+                        different_recipe = 1;
+                    }
+                    if(message.contains("더보기")){
+                        String sql = "delete from recipe";
+                        db.execSQL(sql);
+                        different_recipe++;
+                    }
                     messageList.add(new Message(message, false));
                     editMessage.setText("");
                     sendMessageToBot(message);
@@ -167,10 +179,8 @@ public class ChatFragment extends Fragment implements BotReply {
                 messageList.add(new Message(botReply, true));
                 chatAdapter.notifyDataSetChanged();
                 Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
-                if(botReply.contains("보여드리겠습니다")) {
+                if(botReply.contains("보여드리겠습니다")) { // 재료 당근, 음식 카레, 더보기   << 이런 말들을 했을 때 봇의 대답에 공통적으로 포함된 문자열이 '보여드리겠습니다'임.
                     getRecipe();
-                    String sql = "delete from recipe";
-                    db.execSQL(sql);
                 }
             }else {
                 Toast.makeText(getActivity(), "something went wrong", Toast.LENGTH_SHORT).show();
@@ -207,14 +217,15 @@ public class ChatFragment extends Fragment implements BotReply {
                                 String rsp_nm = cursor.getString(1);
                                 String rsp_parts_dtls = cursor.getString(2);
                                 String manual = cursor.getString(3);
-
-                                out_buffer.append("요리명 : " + rsp_nm + "\n\n").append("재료 : " + rsp_parts_dtls + "\n\n").append("조리법" + "\n" + manual);
+                                out_buffer.append("요리명 : " + rsp_nm + "\n\n")
+                                        .append("재료 : " + rsp_parts_dtls + "\n\n")
+                                        .append("조리법" + "\n" + manual + "\n\n")
+                                        .append("다른 레시피를 원하시면 '더보기'를 입력해주세요.");
                                 messageList.add(new Message(out_buffer.toString(), false));
                                 chatAdapter.notifyDataSetChanged();
                                 Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
                                 out_buffer.delete(0, out_buffer.length());
                             }
-
                         }
                     }
                 });
@@ -230,7 +241,7 @@ public class ChatFragment extends Fragment implements BotReply {
         String rsp = "당근";
         String location = URLEncoder.encode(rsp);
 
-        String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/1/3/RCP_PARTS_DTLS=" + location;
+        String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/" + different_recipe + "/" + different_recipe + "/RCP_PARTS_DTLS=" + location;
 
         try {
             URL url = new URL(queryUrl);
