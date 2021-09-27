@@ -65,8 +65,10 @@ public class ChatFragment extends Fragment implements BotReply {
 
     int different_recipe; // 더보기를 입력한 횟수
 
-    String param;
-    String name;
+    String param; // url 추가 파라미터값 (재료명인지 음식명인지)
+    String name; // url 추가 파라미터값 (이 재료or음식의 이름이 뭔지)
+
+    String[] ingredient_array;
 
     @Nullable
     @Override
@@ -95,8 +97,8 @@ public class ChatFragment extends Fragment implements BotReply {
                         different_recipe = 1;
                     }
                     if(message.contains("더보기")){
-                        String sql = "delete from recipe";
-                        db.execSQL(sql);
+                        //String sql = "delete from recipe";
+                        //db.execSQL(sql);
                         different_recipe++;
                     }
                     messageList.add(new Message(message, false));
@@ -145,16 +147,17 @@ public class ChatFragment extends Fragment implements BotReply {
 
     private void getResponse(String msg){
 
+        ingredient_array = msg.split(" ");
+        name = ingredient_array[1];
+
         if(msg.contains("재료")){
-            int idx = msg.indexOf("재료");
-            name = msg.substring(idx + 2);
+            //int idx = msg.indexOf("재료");
+            //name = msg.substring(idx + 2);
             param =  "RCP_PARTS_DTLS";
-
         } else {
-            int idx = msg.indexOf("음식");
-            name = msg.substring(idx + 2);
+            //int idx = msg.indexOf("음식");
+            //name = msg.substring(idx + 2);
             param ="RCP_NM";
-
         }
     }
 
@@ -186,7 +189,39 @@ public class ChatFragment extends Fragment implements BotReply {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         String sql = "select id, rcp_nm, rcp_parts_dtls, manual from recipe";
+                        if(ingredient_array.length > 2){
+
+                            /*
+                            sql += " where REGEXP_LIKE (rcp_parts_dtls, '";
+
+                            String ingredient;
+                            for(int i=1;i< ingredient_array.length;i++){
+                                ingredient=ingredient_array[i];
+                                sql += ingredient;
+                                if(i < ingredient_array.length - 1){
+                                    sql+="|";
+                                }
+                            }
+                            sql +="')";
+                            */
+
+
+                            sql += " where (";
+
+                            String ingredient;
+                            for(int i=1;i<ingredient_array.length;i++){
+                                ingredient=ingredient_array[i];
+                                sql += "rcp_parts_dtls like '%" + ingredient + "%'";
+                                if(i< ingredient_array.length - 1){
+                                    sql += " and ";
+                                }
+                            }
+                            sql += ")";
+
+
+                        }
 
                         int recordCount = -1;
                         Cursor cursor = null;
@@ -198,8 +233,10 @@ public class ChatFragment extends Fragment implements BotReply {
 
                         if(cursor!=null){
                             recordCount = cursor.getCount();
-                            for(int i=0;i<recordCount;i++){
+                            for(int i=0;i<different_recipe;i++) {
+                                //for(int i=0;i<recordCount;i++){
                                 cursor.moveToNext();
+                            }
 
                                 String rsp_nm = cursor.getString(1);
                                 String rsp_parts_dtls = cursor.getString(2);
@@ -212,7 +249,7 @@ public class ChatFragment extends Fragment implements BotReply {
                                 chatAdapter.notifyDataSetChanged();
                                 Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
                                 out_buffer.delete(0, out_buffer.length());
-                            }
+                         //   }
                         }
                     }
                 });
@@ -228,7 +265,8 @@ public class ChatFragment extends Fragment implements BotReply {
 
         String location = URLEncoder.encode(name);
 
-        String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/" + different_recipe + "/" + different_recipe + "/" + param + "=" + location;
+        //String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/" + different_recipe + "/" + different_recipe + "/" + param + "=" + location;
+        String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/" + different_recipe + "/100/" + param + "=" + location;
 
         try {
             URL url = new URL(queryUrl);
