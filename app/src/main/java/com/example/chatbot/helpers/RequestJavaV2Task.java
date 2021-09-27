@@ -44,6 +44,8 @@ public class RequestJavaV2Task extends AsyncTask<Void, Void, DetectIntentRespons
 
     @Override
     protected void onPostExecute(DetectIntentResponse response) {
+
         mInterface.callback(response);
     }
+
 }

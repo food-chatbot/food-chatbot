@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.chatbot.helpers.SendMessageInBg;
 import com.example.chatbot.interfaces.BotReply;
-import com.google.android.gms.tasks.Task;
 import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.auth.oauth2.ServiceAccountCredentials;
@@ -28,16 +26,19 @@ import com.google.cloud.dialogflow.v2.SessionsClient;
 import com.google.cloud.dialogflow.v2.SessionsSettings;
 import com.google.cloud.dialogflow.v2.TextInput;
 import com.google.common.collect.Lists;
-
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
+
+
 
 public class ChatFragment extends Fragment implements BotReply {
 
+    Message message;
     RecyclerView chatView;
     ChatAdapter chatAdapter;
     List<Message> messageList = new ArrayList<>();
@@ -79,6 +80,7 @@ public class ChatFragment extends Fragment implements BotReply {
             }
         });
 
+
         setUpBot();
         return view;
     }
@@ -107,8 +109,41 @@ public class ChatFragment extends Fragment implements BotReply {
         QueryInput input = QueryInput.newBuilder()
                 .setText(TextInput.newBuilder().setText(message).setLanguageCode("ko-KR")).build();
         new SendMessageInBg(this, sessionName, sessionsClient, input).execute();
+
     }
 
+    private void getResponse(String msg){
+
+        String message = msg.toLowerCase();
+        messageList.add(new Message(message, true));
+        chatAdapter.notifyDataSetChanged();
+
+        if(message.contains("재료")){
+            int idx = message.indexOf("재료");
+            String ingredient = message.substring(idx + 1);
+            URL url = null;
+            try {
+                url = new URL("http://openapi.foodsafetykorea.go.kr/api/f11ac32b2116463f9f13/COOKRCP01/xml/0/1000/RCP_PARTS_DTLS=" + ingredient);
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        else if(message.contains("음식")){
+            int idx = message.indexOf("음식");
+            String food = message.substring(idx + 1);
+            URL url = null;
+            try {
+                url = new URL("http://openapi.foodsafetykorea.go.kr/api/f11ac32b2116463f9f13/COOKRCP01/xml/0/1000/RCP_NM=" + food);
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
     @Override
     public void callback(DetectIntentResponse returnResponse) {
         if(returnResponse!=null) {
