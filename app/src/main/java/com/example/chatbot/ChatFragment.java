@@ -65,6 +65,9 @@ public class ChatFragment extends Fragment implements BotReply {
 
     int different_recipe; // 더보기를 입력한 횟수
 
+    String param;
+    String name;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -86,6 +89,7 @@ public class ChatFragment extends Fragment implements BotReply {
                 String message = editMessage.getText().toString();
                 if (!message.isEmpty()) {
                     if(message.contains("재료") || message.contains("음식")){
+                        getResponse(message);
                         String sql = "delete from recipe";
                         db.execSQL(sql);
                         different_recipe = 1;
@@ -141,36 +145,19 @@ public class ChatFragment extends Fragment implements BotReply {
 
     private void getResponse(String msg){
 
-        String message = msg.toLowerCase();
-        messageList.add(new Message(message, true));
-        chatAdapter.notifyDataSetChanged();
+        if(msg.contains("재료")){
+            int idx = msg.indexOf("재료");
+            name = msg.substring(idx + 2);
+            param =  "RCP_PARTS_DTLS";
 
-        if(message.contains("재료")){
-            int idx = message.indexOf("재료");
-            String ingredient = message.substring(idx + 1);
-            URL url = null;
-            try {
-                url = new URL("http://openapi.foodsafetykorea.go.kr/api/f11ac32b2116463f9f13/COOKRCP01/xml/0/1000/RCP_PARTS_DTLS=" + ingredient);
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-        else if(message.contains("음식")){
-            int idx = message.indexOf("음식");
-            String food = message.substring(idx + 1);
-            URL url = null;
-            try {
-                url = new URL("http://openapi.foodsafetykorea.go.kr/api/f11ac32b2116463f9f13/COOKRCP01/xml/0/1000/RCP_NM=" + food);
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+        } else {
+            int idx = msg.indexOf("음식");
+            name = msg.substring(idx + 2);
+            param ="RCP_NM";
 
         }
     }
+
     @Override
     public void callback(DetectIntentResponse returnResponse) {
         if(returnResponse!=null) {
@@ -238,10 +225,10 @@ public class ChatFragment extends Fragment implements BotReply {
 
     void getXmlData() {
         StringBuffer buffer = new StringBuffer();
-        String rsp = "당근";
-        String location = URLEncoder.encode(rsp);
 
-        String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/" + different_recipe + "/" + different_recipe + "/RCP_PARTS_DTLS=" + location;
+        String location = URLEncoder.encode(name);
+
+        String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/" + different_recipe + "/" + different_recipe + "/" + param + "=" + location;
 
         try {
             URL url = new URL(queryUrl);
