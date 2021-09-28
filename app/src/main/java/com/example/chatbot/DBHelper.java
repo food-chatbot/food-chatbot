@@ -46,7 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + ")";
 
         //레시피 테이블
-        db.execSQL("CREATE TABLE recipe(id INTEGER PRIMARY KEY AUTOINCREMENT, rcp_nm TEXT, rcp_parts_dtls TEXT, manual TEXT)");
+        db.execSQL("CREATE TABLE recipe(id INTEGER PRIMARY KEY AUTOINCREMENT, rcp_nm TEXT, rcp_parts_dtls TEXT, manual TEXT, eng TEXT, car TEXT, pro TEXT, fat TEXT, na TEXT, img BYTE )");
 
     }
 
