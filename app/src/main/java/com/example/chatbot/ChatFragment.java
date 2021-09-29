@@ -34,6 +34,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,7 +42,6 @@ import java.util.UUID;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
-
 
 
 public class ChatFragment extends Fragment implements BotReply {
@@ -53,6 +53,7 @@ public class ChatFragment extends Fragment implements BotReply {
     EditText editMessage;
     Button btnSend;
     View view;
+
     //dialogFlow
     private SessionsClient sessionsClient;
     private SessionName sessionName;
@@ -184,7 +185,7 @@ public class ChatFragment extends Fragment implements BotReply {
                     @Override
                     public void run() {
 
-                        String sql = "select rcp_nm, rcp_parts_dtls, manual from recipe";
+                        String sql = "select rcp_nm, rcp_parts_dtls, manual , eng, car, pro, fat, na, img from recipe";
                         if(ingredient_array.length > 2){
 
                             sql += " where (";
@@ -215,9 +216,22 @@ public class ChatFragment extends Fragment implements BotReply {
                             String rsp_nm = cursor.getString(0);
                             String rsp_parts_dtls = cursor.getString(1);
                             String manual = cursor.getString(2);
+                            String eng = cursor.getString(3);
+                            String car  = cursor.getString(4);
+                            String pro = cursor.getString(5);
+                            String fat = cursor.getString(6);
+                            String na = cursor.getString(7);
+                            byte[] img = cursor.getBlob(8);
+
+
                             out_buffer.append("요리명 : " + rsp_nm + "\n\n")
                                     .append("재료 : " + rsp_parts_dtls + "\n\n")
                                     .append("조리법" + "\n" + manual + "\n\n")
+                                    .append("열량 : " + eng +"\n\n")
+                                    .append("탄수화물 : " + car +"\n\n")
+                                    .append("단백질 : " + pro +"\n\n")
+                                    .append("지방 : " + fat + "\n\n")
+                                    .append("나트륨 : " + na +"\n\n")
                                     .append("다른 레시피를 원하시면 '더보기'를 입력해주세요.");
                             messageList.add(new Message(out_buffer.toString(), false));
                             chatAdapter.notifyDataSetChanged();
@@ -235,10 +249,9 @@ public class ChatFragment extends Fragment implements BotReply {
 
     void getXmlData() {
         StringBuffer buffer = new StringBuffer();
-
         String location = URLEncoder.encode(name);
 
-        String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/" + different_recipe + "/100/" + param + "=" + location;
+        String queryUrl = "http://openapi.foodsafetykorea.go.kr/api/61022da3f7f74985a123/COOKRCP01/xml/" + different_recipe + "/1000/" + param + "=" + location;
 
         try {
             URL url = new URL(queryUrl);
@@ -291,6 +304,24 @@ public class ChatFragment extends Fragment implements BotReply {
                             xpp.next();
                             cv.put("rcp_parts_dtls", xpp.getText());
 
+                        }else if(tag.equals("INFO_ENG")){
+                            xpp.next();
+                            cv.put("eng", xpp.getText());
+                        }else if(tag.equals("INFO_CAR")){
+                            xpp.next();
+                            cv.put("car", xpp.getText());
+                        }else if(tag.equals("INFO_PRO")){
+                            xpp.next();
+                            cv.put("pro", xpp.getText());
+                        }else if(tag.equals("INFO_FAT")){
+                            xpp.next();
+                            cv.put("fat", xpp.getText());
+                        }else if(tag.equals("INFO_NA")){
+                            xpp.next();
+                            cv.put("na", xpp.getText());
+                        }else if(tag.equals("ATT_FILE_NO_MAI")){
+                            xpp.next();
+                            cv.put("img", xpp.getText());
                         }
                         break;
 

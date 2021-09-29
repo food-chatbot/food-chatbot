@@ -6,10 +6,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -62,7 +64,6 @@ public class MainActivity extends AppCompatActivity
         diaryfragment = new DiaryFragment();
         galleryfragment = new GalleryFragment();
         chatfragment = new ChatFragment();
-
         openDatabase();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         //return super.onCreateOptionsMenu(menu);
         MenuInflater menuInflater = getMenuInflater();
+
 
         if(mBeginner==0){ // 네비바에서 챗봇메뉴 (홈메뉴)가 눌리면
             toolbar.getMenu().clear(); // 툴바 내용 안 보이게.
