@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/gallery_imageView"
-        android:layout_width="108.7dp"
-        android:layout_height="108.7dp"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
         android:scaleType="centerCrop"/>
 
 </RelativeLayout>

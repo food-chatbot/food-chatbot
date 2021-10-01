@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,8 +33,6 @@ public class GalleryFragment extends Fragment {
     private Cursor cursor;
 
     int image_id;
-
-    //OnTimePickerSetListener onTimePickerSetListener;
 
     @Nullable
     @Override
@@ -60,56 +59,21 @@ public class GalleryFragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
 
-        gridView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //onTimePickerSetListener.onTimePickerSet(image_id);
-                Bitmap bitmap = adapter.getBitmap(position);
-                Intent intent = new Intent(getActivity(), GalleryView.class);
-                intent.putExtra("bitmap", bitmap);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-
-        });
-
-        /*
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                onTimePickerSetListener.onTimePickerSet(image_id);
+                //onTimePickerSetListener.onTimePickerSet(image_id);
+
+                Toast.makeText(getActivity(), "이미지뷰 선택됨", Toast.LENGTH_SHORT).show();
+                int image_id = adapter.getID(position);
+                Intent intent = new Intent(getActivity(), GalleryView.class);
+                intent.putExtra("image_id", image_id);
+                startActivity(intent);
             }
         });
-        */
+
 
         return view;
     }
-    /*
-    public interface OnTimePickerSetListener{
-        void onTimePickerSet(int id);
-    }
 
-
-    @Override
-    public void onAttach(Context context){
-        super.onAttach(context);
-        if(context instanceof OnTimePickerSetListener){
-            onTimePickerSetListener = (OnTimePickerSetListener) context;
-        } else{
-            throw new RuntimeException(context.toString()
-                    + " must implement OnTimePickerSetListener");
-        }
-    }
-
-    @Override
-    public void onDetach(){
-        super.onDetach();
-        onTimePickerSetListener = null;
-    }
-    */
 }

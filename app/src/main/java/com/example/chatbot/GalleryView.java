@@ -15,9 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GalleryView extends AppCompatActivity {
-    //implements GalleryFragment.OnTimePickerSetListener
 
-    Bitmap bitmap;
+    int image_id;
     ImageView galleryView_imageView;
 
     private DBHelper helper;
@@ -44,32 +43,18 @@ public class GalleryView extends AppCompatActivity {
         db = helper.getWritableDatabase();
 
         Intent getIntent = getIntent();
-        bitmap = (Bitmap)getIntent.getParcelableExtra("bitmap");
+        image_id = getIntent.getIntExtra("image_id", 0);
 
-        galleryView_imageView.setImageBitmap(bitmap);
-
-        /*
-        if(image_id != 0){
-            String sql = "select img_file from DiaryData where post_id = " + image_id;
-            cursor = db.rawQuery(sql,null);
-            while (cursor.moveToNext()) {
-                image = cursor.getBlob(0);
-            }
-            Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
-
-            galleryView_imageView.setImageBitmap(bitmap);
+        String sql = "select img_file from DiaryData where post_id = " + image_id; //나중에 고치기
+        cursor = db.rawQuery(sql,null);
+        while (cursor.moveToNext()) {
+            image = cursor.getBlob(0);
         }
 
-         */
+        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+        galleryView_imageView.setImageBitmap(bitmap);
 
     }
-
-    /*
-    @Override
-    public void onTimePickerSet(int id) {
-        image_id = id;
-    }
-    */
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int id = item.getItemId();

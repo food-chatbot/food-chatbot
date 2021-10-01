@@ -60,12 +60,6 @@ public class FoodListAdater extends BaseAdapter {
 
         Bitmap bitmap = getBitmap(position);
 
-        /*
-        Food food = foodsList.get(position);
-
-        byte[] foodImage = food.getImage();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);
-        */
         holder.imageView.setImageBitmap(bitmap);
 
         return row;
@@ -78,5 +72,12 @@ public class FoodListAdater extends BaseAdapter {
         Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);
 
         return bitmap;
+    }
+
+    public int getID(int position){
+        Food food = foodsList.get(position);
+
+        int id = food.getId();
+        return id;
     }
 }
