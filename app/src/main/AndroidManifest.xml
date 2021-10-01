@@ -35,6 +35,7 @@
         <activity android:name=".TipView.Tip2Activity"></activity>
         <activity android:name=".TipView.Tip3Activity"></activity>
         <activity android:name=".InfoActivity"></activity>
+        <activity android:name=".GalleryView"></activity>
     </application>
 
 </manifest>
