@@ -104,6 +104,11 @@ public class MainActivity extends AppCompatActivity
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
+
+            case R.id.action_explanation:
+                Intent intent = new Intent(getApplicationContext(),InfoActivity.class);
+                startActivity(intent);
+                finish();
         }
         return super.onOptionsItemSelected(item);
     }

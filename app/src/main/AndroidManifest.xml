@@ -34,7 +34,7 @@
         <activity android:name=".TipView.TipActivity"></activity>
         <activity android:name=".TipView.Tip2Activity"></activity>
         <activity android:name=".TipView.Tip3Activity"></activity>
-
+        <activity android:name=".InfoActivity"></activity>
     </application>
 
 </manifest>
