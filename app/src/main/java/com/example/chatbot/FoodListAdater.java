@@ -68,7 +68,7 @@ public class FoodListAdater extends BaseAdapter {
         */
         holder.imageView.setImageBitmap(bitmap);
 
-        return null;
+        return row;
     }
 
     public Bitmap getBitmap(int position){

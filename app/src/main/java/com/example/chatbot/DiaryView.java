@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -32,6 +34,7 @@ import java.util.Calendar;
 public class DiaryView extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView tbarText;
     DBHelper dbHelper;
     SQLiteDatabase sqlitedb;
     Integer postID = -1;
@@ -46,16 +49,17 @@ public class DiaryView extends AppCompatActivity {
         setContentView(R.layout.diary_edit);
 
         toolbar = findViewById(R.id.toolBar);
+        tbarText = toolbar.findViewById(R.id.tbarText);
         setSupportActionBar(toolbar);
         
         Calendar cal = Calendar.getInstance();
         int cYear = cal.get(Calendar.YEAR);
         int cMonth = cal.get(Calendar.MONTH);
         int cDay = cal.get(Calendar.DAY_OF_MONTH);
-
+        tbarText.setText(cYear+"년 "+(cMonth+1)+"월 "+cDay+"일");
+        tbarText.setTextColor(Color.rgb(0,0,0));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
-        getSupportActionBar().setTitle(cYear+"년 "+(cMonth+1)+"월 "+cDay+"일");
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         diaryImg = findViewById(R.id.diary_img);
         diary_et = findViewById(R.id.diary_et);

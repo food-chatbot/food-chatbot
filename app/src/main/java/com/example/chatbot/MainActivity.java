@@ -11,12 +11,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chatbot.TipView.TipFragment;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Toolbar toolbar;
+    TextView tbarText;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 파이어베이스 관련 작업들
@@ -54,7 +57,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolBar);
+        tbarText = (TextView)toolbar.findViewById(R.id.tbarText);
         setSupportActionBar(toolbar);
+
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.naviView);
@@ -66,10 +71,11 @@ public class MainActivity extends AppCompatActivity
         chatfragment = new ChatFragment();
         openDatabase();
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false); //기존 툴바 텍스트 안보이게
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.hamburger); // 뒤로가기 버튼의 이미지를 햄버거바로 설정
 
-        getSupportActionBar().setTitle("챗봇");
+
 
     }
 
@@ -142,28 +148,32 @@ public class MainActivity extends AppCompatActivity
 
         switch(n) {
             case 0:
-                getSupportActionBar().setTitle("챗봇");
+                tbarText.setText("맛있는 레시피");
+                tbarText.setTextColor(Color.rgb(229,106,45));
                 mBeginner = 0;
                 invalidateOptionsMenu(); // onCreateOptionsMenu 호출하는 함수
                 ft.replace(R.id.main_frame, chatfragment);
                 ft.commit();
                 break;
             case 1:
-                getSupportActionBar().setTitle("건강tip");
+                tbarText.setText("건강tip");
+                tbarText.setTextColor(Color.rgb(0,0,0));
                 mBeginner = 1;
                 invalidateOptionsMenu();
                 ft.replace(R.id.main_frame, tipfragment);
                 ft.commit();
                 break;
             case 2:
-                getSupportActionBar().setTitle("다이어리");
+                tbarText.setText("다이어리");
+                tbarText.setTextColor(Color.rgb(0,0,0));
                 mBeginner = 1;
                 invalidateOptionsMenu();
                 ft.replace(R.id.main_frame, diaryfragment);
                 ft.commit();
                 break;
             case 3:
-                getSupportActionBar().setTitle("사진첩");
+                tbarText.setText("사진첩");
+                tbarText.setTextColor(Color.rgb(0,0,0));
                 mBeginner = 1;
                 invalidateOptionsMenu();
                 ft.replace(R.id.main_frame, galleryfragment);
