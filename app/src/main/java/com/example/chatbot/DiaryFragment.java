@@ -145,7 +145,7 @@ public class DiaryFragment extends Fragment {
     }
 
     public int loadNoteListData(int todoDate){
-        String sql = "select _id, TODO from diary_todo where date = " + todoDate + " order by _id desc";
+        String sql = "select _id, TODO, checktodo from diary_todo where date = " + todoDate; //+ " order by _id desc";
 
         int recordCount = -1;
         NoteDatabase database = NoteDatabase.getInstance(context);
@@ -166,7 +166,8 @@ public class DiaryFragment extends Fragment {
 
                     int _id = outCursor.getInt(0);
                     String todo = outCursor.getString(1);
-                    items.add(new Note(_id, todo));
+                    int checktodo = outCursor.getInt(2);
+                    items.add(new Note(_id, todo, checktodo));
                 }
                 outCursor.close();
 
@@ -185,7 +186,7 @@ public class DiaryFragment extends Fragment {
         String todo = todoWrite.getText().toString();
 
         // 투두 테이블에 값 추가
-        String sql = "insert into diary_todo(TODO, date) values('" + todo + "', " + todoDate + ");";
+        String sql = "insert into diary_todo(TODO, date, checktodo) values('" + todo + "', " + todoDate + ", 0);";
 
         NoteDatabase database = NoteDatabase.getInstance(context);
         database.execSQL(sql);

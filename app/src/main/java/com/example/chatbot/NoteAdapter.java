@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,15 +33,22 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         LayoutInflater inflate = LayoutInflater.from(parent.getContext());
         View itemView = inflate.inflate(R.layout.todo_item, parent, false);
 
+        Log.d(TAG, "onCreate");
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NoteAdapter.ViewHolder holder, int position) {
 
+        Log.d(TAG, "onBind");
         Note item = items.get(position);
         holder.setItem(item);
         holder.setLayout();
+
+        int checktodo = holder.setchecktodo(item);
+
+        holder.setCheck(checktodo);
+        
     }
 
     @Override
@@ -59,6 +67,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         String tVtemp; // 투두 텍스트뷰의 내용을 잠시 저장하는 변수
         String eTtemp; // 투두 수정할 때 에딧텍스트뷰의 내용을 잠시 저장하는 변수
         CardView todoCardView; // 카드뷰
+        int checktodo;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -73,16 +82,30 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
 
             btnDiaryCheckTodo.setOnClickListener(new View.OnClickListener() {
+                Context context;
+
                 @Override
                 public void onClick(View v) {
                     if(btnDiaryCheckTodo.isSelected()){
+                        String todotext = (String)tVDiaryTodo.getText();
+                        String sql = "update diary_todo set checktodo = 0 where TODO = '" + todotext + "'";
+                        NoteDatabase database = NoteDatabase.getInstance(context);
+                        database.execSQL(sql);
+
                         btnDiaryCheckTodo.setSelected(false);
                         todoCardView.setCardBackgroundColor(Color.WHITE);
                         tVDiaryTodo.setPaintFlags(0);
+
                     } else{
+                        String todotext = (String)tVDiaryTodo.getText();
+                        String sql = "update diary_todo set checktodo = 1 where TODO = '" + todotext + "'";
+                        NoteDatabase database = NoteDatabase.getInstance(context);
+                        database.execSQL(sql);
+
                         btnDiaryCheckTodo.setSelected(true);
-                        todoCardView.setCardBackgroundColor(Color.rgb(0xf8, 0x73, 0x32));
+                        todoCardView.setCardBackgroundColor(Color.rgb(0xFF, 0xCC, 0xB2));
                         tVDiaryTodo.setPaintFlags(tVDiaryTodo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
                     }
 
                 }
@@ -104,6 +127,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
                     btnDiaryEditTodoComplition.setVisibility(v.VISIBLE);
 
                     eTDiaryTodoEdit.setText(tVtemp);
+
                 }
             });
 
@@ -120,7 +144,18 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
                     NoteDatabase database = NoteDatabase.getInstance(context);
                     database.execSQL(sql);
 
-                    tVDiaryTodo.setText(eTtemp);
+                    int position = getAdapterPosition();
+
+                    if(btnDiaryCheckTodo.isSelected()){
+                        checktodo = 1;
+                    } else{
+                        checktodo = 0;
+                    }
+                    Note note = new Note(position, eTtemp, checktodo);
+                    items.set(position, note);
+                    notifyItemChanged(position);
+
+                    //tVDiaryTodo.setText(eTtemp);
 
                     eTDiaryTodoEdit.setVisibility(v.GONE);
                     btnDiaryEditTodoComplition.setVisibility(v.GONE);
@@ -171,6 +206,23 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         public void setLayout(){
             layoutTodoItem.setVisibility(View.VISIBLE);
         }
+
+        public void setCheck(int checktodo){
+            if(checktodo == 1){
+                btnDiaryCheckTodo.setSelected(true);
+                todoCardView.setCardBackgroundColor(Color.rgb(0xFF, 0xCC, 0xB2));
+                tVDiaryTodo.setPaintFlags(tVDiaryTodo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            } else{
+                btnDiaryCheckTodo.setSelected(false);
+                todoCardView.setCardBackgroundColor(Color.WHITE);
+                tVDiaryTodo.setPaintFlags(0);
+            }
+        }
+
+        public int setchecktodo(Note item){
+         return item.getChecktodo();
+        }
+
     }
 
     //배열의 아이템을 가리키는 메서드.

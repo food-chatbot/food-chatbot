@@ -4,9 +4,9 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/gallery_imageView"
         android:layout_width="108.7dp"
         android:layout_height="108.7dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/orange_logo"/>
+        android:scaleType="centerCrop"/>
 
 </RelativeLayout>

@@ -41,7 +41,8 @@ public class DBHelper extends SQLiteOpenHelper {
         sql = "create table diary_todo ("
                 + " _id integer NOT NULL PRIMARY KEY AUTOINCREMENT, "
                 + "  TODO TEXT DEFAULT '', "
-                + "date INTEGER NOT NULL "
+                + "date INTEGER NOT NULL, "
+                + "checktodo INTEGER NOT NULL "
                 + ")";
 
         db.execSQL(sql);
