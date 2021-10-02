@@ -9,7 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.chatbot.R;
 import com.example.chatbot.Message;
+import com.google.firebase.installations.Utils;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.w3c.dom.Text;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -32,19 +40,24 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     @Override public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String message = messageList.get(position).getMessage();
         boolean isReceived = messageList.get(position).getIsReceived();
+
+
         if(isReceived){
             holder.messageReceive.setVisibility(View.VISIBLE);
             holder.messageSend.setVisibility(View.GONE);
             holder.messageReceive.setText(message);
+
         }else {
             if(message.contains("조리법")){
                 holder.messageReceive.setVisibility(View.VISIBLE);
                 holder.messageSend.setVisibility(View.GONE);
                 holder.messageReceive.setText(message);
+
             } else{
                 holder.messageSend.setVisibility(View.VISIBLE);
                 holder.messageReceive.setVisibility(View.GONE);
                 holder.messageSend.setText(message);
+
             }
         }
     }
@@ -57,6 +70,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
 
         TextView messageSend;
         TextView messageReceive;
+        TextView timeText;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);

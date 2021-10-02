@@ -16,7 +16,7 @@ import com.example.chatbot.R;
 public class TipFragment extends Fragment {
 
     private View view;
-    ImageView tip1, tip2, tip3, tip4, tip5;
+    ImageView tip1, tip2, tip3;
 
     @Nullable
     @Override

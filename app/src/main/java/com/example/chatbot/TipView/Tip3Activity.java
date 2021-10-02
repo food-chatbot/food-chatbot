@@ -1,5 +1,6 @@
 package com.example.chatbot.TipView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ public class Tip3Activity extends AppCompatActivity {
 
     ViewPager pager;
     Toolbar toolbar;
+    TextView tbarText;
     PageIndicatorView pg;
 
 
@@ -29,11 +31,12 @@ public class Tip3Activity extends AppCompatActivity {
         setContentView(R.layout.tip_view);
 
         toolbar = findViewById(R.id.toolBar);
+        tbarText = (TextView)toolbar.findViewById(R.id.tbarText);
+        tbarText.setText("비만 예방");
+        tbarText.setTextColor(Color.rgb(0,0,0));
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("비만 예방");
-
         pg = findViewById(R.id.page_indicator_view);
 
 

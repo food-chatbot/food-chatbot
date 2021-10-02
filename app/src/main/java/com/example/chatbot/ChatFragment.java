@@ -4,16 +4,19 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,13 +32,20 @@ import com.google.cloud.dialogflow.v2.SessionsClient;
 import com.google.cloud.dialogflow.v2.SessionsSettings;
 import com.google.cloud.dialogflow.v2.TextInput;
 import com.google.common.collect.Lists;
+import com.google.firebase.installations.Utils;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Blob;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -46,20 +56,21 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 public class ChatFragment extends Fragment implements BotReply {
 
-    Message message;
+    ConstraintLayout timeLayout;
     RecyclerView chatView;
     ChatAdapter chatAdapter;
     List<Message> messageList = new ArrayList<>();
     EditText editMessage;
     Button btnSend;
     View view;
+    TextView timeText;
 
     //dialogFlow
     private SessionsClient sessionsClient;
     private SessionName sessionName;
     private String uuid = UUID.randomUUID().toString();
     private String TAG = "ChatFragment";
-
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy.M.d"); // 날짜 포맷
     private DBHelper helper;
     private SQLiteDatabase db;
     StringBuffer out_buffer = new StringBuffer();
@@ -87,6 +98,11 @@ public class ChatFragment extends Fragment implements BotReply {
         helper = new DBHelper(getActivity().getApplicationContext());
         db = helper.getWritableDatabase();
 
+        Date date = new Date();
+        String cDate = mFormat.format(date);
+
+
+
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
                 String message = editMessage.getText().toString();
@@ -107,7 +123,7 @@ public class ChatFragment extends Fragment implements BotReply {
                     Objects.requireNonNull(chatView.getLayoutManager())
                             .scrollToPosition(messageList.size() - 1);
                 } else {
-                    Toast.makeText(getActivity(), "Please enter text!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "텍스트를 입력해주세요", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -116,7 +132,6 @@ public class ChatFragment extends Fragment implements BotReply {
         setUpBot();
         return view;
     }
-
 
     private void setUpBot() {
         try {

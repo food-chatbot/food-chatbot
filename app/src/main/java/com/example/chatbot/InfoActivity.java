@@ -22,7 +22,6 @@ public class InfoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false); //기존 툴바 텍스트 안보이게
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
 
-        //임의로 이미지 넣음
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
