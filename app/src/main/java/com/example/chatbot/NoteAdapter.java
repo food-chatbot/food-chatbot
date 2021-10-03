@@ -176,12 +176,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
                     // 삭제한 거 바로 반영
                     int position = getAdapterPosition();
-                    //if(position != RecyclerView.NO_POSITION){
-                        items.remove(position);
-                        notifyItemRemoved(position);
-                        //notifyItemRangeChanged(position, items.size());
-                    //}
-                    Toast.makeText(v.getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    items.remove(position);
+                    notifyItemRemoved(position);
 
                 }
 

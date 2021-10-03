@@ -48,7 +48,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             holder.messageReceive.setText(message);
 
         }else {
-            if(message.contains("조리법")){
+            if(message.contains("조리법") || message.contains("없습니다")){
                 holder.messageReceive.setVisibility(View.VISIBLE);
                 holder.messageSend.setVisibility(View.GONE);
                 holder.messageReceive.setText(message);

@@ -223,7 +223,7 @@ public class ChatFragment extends Fragment implements BotReply {
                             e.printStackTrace();
                         }
 
-                        if(cursor!=null){
+                        if(cursor.getCount()>0){
                             for(int i=0;i<different_recipe;i++) {
                                 cursor.moveToNext();
                             }
@@ -248,6 +248,12 @@ public class ChatFragment extends Fragment implements BotReply {
                                     .append("지방 : " + fat + "\n\n")
                                     .append("나트륨 : " + na +"\n\n")
                                     .append("다른 레시피를 원하시면 '더보기'를 입력해주세요.");
+                            messageList.add(new Message(out_buffer.toString(), false));
+                            chatAdapter.notifyDataSetChanged();
+                            Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
+                            out_buffer.delete(0, out_buffer.length());
+                        } else{
+                            out_buffer.append("레시피를 찾을 수 없습니다.");
                             messageList.add(new Message(out_buffer.toString(), false));
                             chatAdapter.notifyDataSetChanged();
                             Objects.requireNonNull(chatView.getLayoutManager()).scrollToPosition(messageList.size() - 1);
