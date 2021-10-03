@@ -102,12 +102,16 @@ public class DiaryView extends AppCompatActivity {
                 return true;
 
             case R.id.action_edit:  //수정 버튼 누르면 diary_write로 넘어가게
-                Intent intent = new Intent(getApplicationContext(),DiaryViewEdit.class);
-                intent.putExtra("cYear", cYear);
-                intent.putExtra("cMonth", cMonth);
-                intent.putExtra("cDay", cDay);
-                intent.putExtra("write-edit", "edit");
-                startActivityForResult(intent, 102);
+                if(diary_et.getText().length() != 0){
+                    Intent intent = new Intent(getApplicationContext(),DiaryViewEdit.class);
+                    intent.putExtra("cYear", cYear);
+                    intent.putExtra("cMonth", cMonth);
+                    intent.putExtra("cDay", cDay);
+                    intent.putExtra("write-edit", "edit");
+                    startActivityForResult(intent, 102);
+                } else{
+                    Toast.makeText(getApplicationContext(), "일기가 없습니다. 일기를 먼저 작성해주세요.", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.action_delete:

@@ -24,14 +24,13 @@
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/drawable/tip_view.xml" value="0.3764102564102564" />
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/adapter_message_one.xml" value="0.17806484295845998" />
-        <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/chat.xml" value="0.1" />
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/diary.xml" value="0.36614583333333334" />
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/diary_edit.xml" value="0.36614583333333334" />
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/diary_write.xml" value="0.33" />
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/gallery.xml" value="0.36614583333333334" />
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/gallery_items.xml" value="0.36614583333333334" />
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/gallery_view.xml" value="0.2046875" />
-        <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/info.xml" value="0.33" />
+        <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/info.xml" value="0.17806484295845998" />
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/tip.xml" value="0.2296195652173913" />
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/tip_view.xml" value="0.36614583333333334" />
         <entry key="..\:/GURU2/food-chatbot/app/src/main/res/layout/tip_viewpager.xml" value="0.36614583333333334" />
@@ -59,6 +58,7 @@
         <entry key="..\:/GURU2/foodchatbot/app/src/main/res/layout/tip.xml" value="0.36614583333333334" />
         <entry key="..\:/GURU2/foodchatbot/app/src/main/res/layout/tip_view.xml" value="0.36614583333333334" />
         <entry key="..\:/GURU2/foodchatbot/app/src/main/res/menu/menu_toolbar_chat.xml" value="0.36614583333333334" />
+        <entry key="..\:/Guru/food-chatbot-gitpush/app/src/main/res/drawable/imageview_rounding.xml" value="0.38229166666666664" />
         <entry key="..\:/Guru/food-chatbot-gitpush/app/src/main/res/layout/diary_edit.xml" value="0.36614583333333334" />
         <entry key="..\:/Guru/food-chatbot-gitpush/app/src/main/res/layout/diary_write.xml" value="0.36614583333333334" />
         <entry key="..\:/Guru/food-chatbot-todo_error/app/src/main/res/drawable/todo_checkbutton.xml" value="0.2222222222222222" />
