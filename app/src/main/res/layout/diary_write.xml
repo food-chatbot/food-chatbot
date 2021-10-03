@@ -34,14 +34,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.118">
 
-        <TextView
-            android:id="@+id/diary_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/diary_wirte_et"
+            android:layout_width="345dp"
+            android:layout_height="160dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
             android:lines="5"
-            android:text="작성한 일기가 없습니다." />
+            android:hint="작성한 일기가 없습니다." />
 
     </LinearLayout>
 
@@ -50,7 +50,7 @@
         android:id="@+id/imageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="264dp"
+        android:layout_marginTop="288dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,8 @@
         app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/button_border"
-        android:text="작성하기"/>
+        android:text="작성하기"
+        android:textColor="@color/white"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

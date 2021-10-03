@@ -35,7 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
         //데이터베이스 -> 테이블 -> 컬럼 -> 값
 
        // 다이어리 테이블
-        db.execSQL("CREATE TABLE DiaryData (post_id INTEGER PRIMARY KEY AUTOINCREMENT, reporting_date CHAR(10) NOT NULL, content TEXT, img_file BYTE)");
+        db.execSQL("CREATE TABLE DiaryData (post_id INTEGER PRIMARY KEY AUTOINCREMENT, reporting_date CHAR(20) NOT NULL, content TEXT, img_file BLOB)");
 
         // 투두 테이블
         sql = "create table diary_todo ("

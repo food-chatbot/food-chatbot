@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +47,12 @@ public class DiaryFragment extends Fragment {
     EditText todoWrite;
     Button todoSave;
 
+    int cYear;
+    int cMonth;
+    int cDay;
+
+    Cursor cursor;
+    String diary_tv_date;
 
     @Nullable
     @Override
@@ -57,21 +62,31 @@ public class DiaryFragment extends Fragment {
 
         calendarView = view.findViewById(R.id.calendarView);
         date_tv = view.findViewById(R.id.date_tv);
-        diary_tv = view.findViewById(R.id.diary_tv);
+        diary_tv = view.findViewById(R.id.diary_wirte_et);
         preDiary = view.findViewById(R.id.preDiary);
 
         initUI(view);
 
         Calendar cal = Calendar.getInstance();
-        int cYear = cal.get(Calendar.YEAR);
-        int cMonth = cal.get(Calendar.MONTH);
-        int cDay = cal.get(Calendar.DAY_OF_MONTH);
+        cYear = cal.get(Calendar.YEAR);
+        cMonth = cal.get(Calendar.MONTH);
+        cDay = cal.get(Calendar.DAY_OF_MONTH);
 
         todoDate = Integer.parseInt(String.valueOf(cYear) + String.valueOf(cMonth+1) + String.valueOf(cDay));
 
         loadNoteListData(todoDate);
 
         date_tv.setText(cYear+"년 "+(cMonth+1)+"월 "+cDay+"일"); //오늘 날짜 date_tv에 출력
+
+        String diary_content = setDiaryTV();
+        //if(date_tv.getText().toString() == (String)diary_tv_date){
+        diary_tv.setText(diary_content);
+        //}
+        if(diary_tv.length() == 0){
+            diary_tv.setText("작성한 일기가 없습니다.");
+        }
+
+
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() // 날짜 선택 이벤트
         {
@@ -88,6 +103,17 @@ public class DiaryFragment extends Fragment {
                 todoDate = Integer.parseInt(selectedYear + selectedMonth + selectedDay);
                 loadNoteListData(todoDate);
 
+                cYear = year;
+                cMonth = month;
+                cDay = dayOfMonth;
+
+                String diary_content = setDiaryTV();
+
+                diary_tv.setText(diary_content);
+                if(diary_tv.length() == 0){
+                    diary_tv.setText("작성한 일기가 없습니다.");
+                }
+
             }
         });
 
@@ -96,8 +122,10 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(),DiaryView.class);
-
-                startActivity(intent);
+                intent.putExtra("cYear", cYear);
+                intent.putExtra("cMonth", cMonth);
+                intent.putExtra("cDay", cDay);
+                startActivityForResult(intent, 103);
 
             }
         });
@@ -130,6 +158,20 @@ public class DiaryFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String diary_content = setDiaryTV();
+
+        diary_tv.setText(diary_content);
+        if(diary_tv.length() == 0){
+            diary_tv.setText("작성한 일기가 없습니다.");
+        }
+
+
     }
 
     private void initUI(View view){
@@ -207,7 +249,12 @@ public class DiaryFragment extends Fragment {
             case R.id.action_add:
                 Toast.makeText(getActivity(), "추가 버튼", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(),DiaryViewEdit.class);
-                startActivity(intent);
+                //cMonth+=1;
+                intent.putExtra("cYear", cYear);
+                intent.putExtra("cMonth", cMonth);
+                intent.putExtra("cDay", cDay);
+                intent.putExtra("write-edit", "write");
+                startActivityForResult(intent, 101);
                 break;
 
             case R.id.action_delete:
@@ -215,6 +262,18 @@ public class DiaryFragment extends Fragment {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public String setDiaryTV(){
+        diary_tv_date = (cYear+"년 "+(cMonth+1)+"월 "+cDay+"일").toString();
+        String sql = "select content from DiaryData where reporting_date = '" + diary_tv_date + "'";
+        NoteDatabase database = NoteDatabase.getInstance(context);
+        cursor = database.rawQuery(sql);
+        String diary_content = null;
+        while(cursor.moveToNext()){
+            diary_content = cursor.getString(0);
+        }
+        return diary_content;
     }
 
 }

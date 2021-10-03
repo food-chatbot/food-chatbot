@@ -55,7 +55,7 @@
             tools:src="@tools:sample/avatars" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
+    <TextView
         android:id="@+id/diary_et"
         android:layout_width="360dp"
         android:layout_height="144dp"
@@ -64,7 +64,8 @@
         android:gravity="top"
         android:hint="일기를 작성하세요"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@null"/>
 
 
 </LinearLayout>

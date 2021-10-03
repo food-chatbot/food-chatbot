@@ -48,12 +48,12 @@ public class GalleryFragment extends Fragment {
         db = helper.getWritableDatabase();
 
         //sqlite에서 이미지 받아오는 코드
-        String sql = "select * from DiaryData"; //나중에 고치기
+        String sql = "select post_id, img_file from DiaryData where img_file is not null"; //나중에 고치기
         cursor = db.rawQuery(sql,null);
         list.clear();
         while (cursor.moveToNext()){
             image_id = cursor.getInt(0);
-            byte[] image = cursor.getBlob(3);
+            byte[] image = cursor.getBlob(1);
 
             list.add(new Food(image_id, image));
         }

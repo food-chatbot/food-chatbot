@@ -41,7 +41,13 @@ public class DiaryView extends AppCompatActivity {
     Integer newDate = 0;
     Intent intent;
     ImageView diaryImg;
-    EditText diary_et;
+    TextView diary_et;
+
+    String diary_date;
+
+    int cYear;
+    int cMonth;
+    int cDay;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,11 +57,17 @@ public class DiaryView extends AppCompatActivity {
         toolbar = findViewById(R.id.toolBar);
         tbarText = toolbar.findViewById(R.id.tbarText);
         setSupportActionBar(toolbar);
-        
-        Calendar cal = Calendar.getInstance();
+
+        //Calendar cal = Calendar.getInstance();
+        Intent intent = getIntent();
+        cYear = intent.getIntExtra("cYear", 0);
+        cMonth = intent.getIntExtra("cMonth", 0);
+        cDay = intent.getIntExtra("cDay", 0);
+        /* 이렇게 하면 preDiary 눌렀을 때 누른 날짜가 아니라 오늘 날짜만 떠서 지웠어요!
         int cYear = cal.get(Calendar.YEAR);
         int cMonth = cal.get(Calendar.MONTH);
         int cDay = cal.get(Calendar.DAY_OF_MONTH);
+        */
         tbarText.setText(cYear+"년 "+(cMonth+1)+"월 "+cDay+"일");
         tbarText.setTextColor(Color.rgb(0,0,0));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
@@ -64,16 +76,10 @@ public class DiaryView extends AppCompatActivity {
         diaryImg = findViewById(R.id.diary_img);
         diary_et = findViewById(R.id.diary_et);
 
-        //newDate = intent.getIntExtra("newDate",0);
-        //postID = intent.getIntExtra("postID",-1);
+        diary_date = (cYear+"년 "+(cMonth+1)+"월 "+cDay+"일").toString();
 
-        //일기가 있다면
-        if(postID>0){
-            dbHelper = new DBHelper(this);
-            loadDiary();    //일기를 불러옴
-       }
-
-
+        dbHelper = new DBHelper(this);
+        loadDiary();    //일기를 불러옴
 
     }
 
@@ -97,22 +103,23 @@ public class DiaryView extends AppCompatActivity {
 
             case R.id.action_edit:  //수정 버튼 누르면 diary_write로 넘어가게
                 Intent intent = new Intent(getApplicationContext(),DiaryViewEdit.class);
-                startActivity(intent);
+                intent.putExtra("cYear", cYear);
+                intent.putExtra("cMonth", cMonth);
+                intent.putExtra("cDay", cDay);
+                intent.putExtra("write-edit", "edit");
+                startActivityForResult(intent, 102);
                 break;
 
             case R.id.action_delete:
 
-                if(postID>0){
+                if(diary_et.getText().length() != 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("삭제").setMessage("해당 일기를 삭제하시겠습니까?");
                     builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             deleteDiary();
-                            Toast.makeText(getApplicationContext(),"일기가 삭제되었습니다.",Toast.LENGTH_SHORT);
-                            finish();
-                            Intent intent = new Intent(getApplicationContext(),DiaryFragment.class);
-                            startActivity(intent);
+                            Toast.makeText(getApplicationContext(),"일기가 삭제되었습니다.",Toast.LENGTH_SHORT).show();
                             finish();
                         }
                     });
@@ -128,6 +135,16 @@ public class DiaryView extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 102) {
+            Toast.makeText(this, "DiaryView 수정", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
     public void loadDiary(){  //DB에서 다이어리 가져오기
         Integer weather;
         byte[] image;
@@ -136,19 +153,22 @@ public class DiaryView extends AppCompatActivity {
 
         sqlitedb = dbHelper.getReadableDatabase();
 
-        cursor = sqlitedb.rawQuery("SELECT * FROM diary_posts WHERE post_id = $postID", null);
+        cursor = sqlitedb.rawQuery("SELECT * FROM DiaryData WHERE reporting_date = '" + diary_date + "'", null);
 
         if(cursor.moveToFirst()){
-             diary_et.setText(cursor.getString(cursor.getColumnIndex("content")));
+            diary_et.setText(cursor.getString(cursor.getColumnIndex("content")));
+            if(diary_et.getText().length() == 0){
+                diary_et.setText("작성한 일기가 없습니다.");
+            }
 
-             try{
-                 image = cursor.getBlob(cursor.getColumnIndex("img_file"));
-                 bitmap = BitmapFactory.decodeByteArray(image,0,image.length);
-                 diaryImg.setImageBitmap(bitmap);
+            try{
+                image = cursor.getBlob(cursor.getColumnIndex("img_file"));
+                bitmap = BitmapFactory.decodeByteArray(image,0,image.length);
+                diaryImg.setImageBitmap(bitmap);
 
-             }catch (NullPointerException n){
-                 Toast.makeText(getApplicationContext(),"저장된 사진이 없습니다.",Toast.LENGTH_SHORT);
-             }
+            }catch (NullPointerException n){
+                Toast.makeText(getApplicationContext(),"저장된 사진이 없습니다.",Toast.LENGTH_SHORT);
+            }
         }
         cursor.close();
         sqlitedb.close();
@@ -157,6 +177,6 @@ public class DiaryView extends AppCompatActivity {
     //다이어리 삭제
     public void deleteDiary(){
         sqlitedb = dbHelper.getWritableDatabase();
-        sqlitedb.execSQL("DELETE FROM diary_posts WHERE post_id = $postID");
+        sqlitedb.execSQL("DELETE FROM DiaryData WHERE reporting_date = '" + diary_date + "'");
     }
 }
