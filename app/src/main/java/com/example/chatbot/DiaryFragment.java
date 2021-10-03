@@ -79,9 +79,8 @@ public class DiaryFragment extends Fragment {
         date_tv.setText(cYear+"년 "+(cMonth+1)+"월 "+cDay+"일"); //오늘 날짜 date_tv에 출력
 
         String diary_content = setDiaryTV();
-        //if(date_tv.getText().toString() == (String)diary_tv_date){
         diary_tv.setText(diary_content);
-        //}
+
         if(diary_tv.length() == 0){
             diary_tv.setText("작성한 일기가 없습니다.");
         }
@@ -117,7 +116,7 @@ public class DiaryFragment extends Fragment {
             }
         });
 
-
+        //다이어리 미리보기 부분 클릭 시 해당 다이어리로
         preDiary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -248,7 +247,7 @@ public class DiaryFragment extends Fragment {
         switch(item.getItemId()){
             case R.id.action_add:
                 Intent intent = new Intent(getActivity(),DiaryViewEdit.class);
-                //cMonth+=1;
+
                 intent.putExtra("cYear", cYear);
                 intent.putExtra("cMonth", cMonth);
                 intent.putExtra("cDay", cDay);

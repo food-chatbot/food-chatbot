@@ -58,16 +58,11 @@ public class DiaryView extends AppCompatActivity {
         tbarText = toolbar.findViewById(R.id.tbarText);
         setSupportActionBar(toolbar);
 
-        //Calendar cal = Calendar.getInstance();
         Intent intent = getIntent();
         cYear = intent.getIntExtra("cYear", 0);
         cMonth = intent.getIntExtra("cMonth", 0);
         cDay = intent.getIntExtra("cDay", 0);
-        /* 이렇게 하면 preDiary 눌렀을 때 누른 날짜가 아니라 오늘 날짜만 떠서 지웠어요!
-        int cYear = cal.get(Calendar.YEAR);
-        int cMonth = cal.get(Calendar.MONTH);
-        int cDay = cal.get(Calendar.DAY_OF_MONTH);
-        */
+
         tbarText.setText(cYear+"년 "+(cMonth+1)+"월 "+cDay+"일");
         tbarText.setTextColor(Color.rgb(0,0,0));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼
@@ -149,7 +144,7 @@ public class DiaryView extends AppCompatActivity {
     }
 
     public void loadDiary(){  //DB에서 다이어리 가져오기
-        Integer weather;
+
         byte[] image;
         Bitmap bitmap;
         Cursor cursor;

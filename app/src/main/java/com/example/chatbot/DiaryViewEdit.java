@@ -85,6 +85,7 @@ public class DiaryViewEdit extends AppCompatActivity {
 
         setInit();
 
+        //이미지 클릭 시 크게 보기
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +93,7 @@ public class DiaryViewEdit extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                //intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+
                 startActivityForResult(intent, GET_GALLERY_IMAGE);
             }
         });

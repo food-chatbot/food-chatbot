@@ -6,7 +6,6 @@ public class DiaryData {
 
     Integer post_id = 0;
     String reporting_date;
-    //Integer weather = 0;
     String content = "";
     byte[] img = null;      //데이터형??
 
@@ -14,7 +13,6 @@ public class DiaryData {
 
         this.post_id = post_id;
         this. reporting_date = reporting_date;
-        //this. weather = weather;
         this.content = content;
         this.img = img;
     }
