@@ -62,9 +62,7 @@ public class GalleryFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //onTimePickerSetListener.onTimePickerSet(image_id);
 
-                Toast.makeText(getActivity(), "이미지뷰 선택됨", Toast.LENGTH_SHORT).show();
                 int image_id = adapter.getID(position);
                 Intent intent = new Intent(getActivity(), GalleryView.class);
                 intent.putExtra("image_id", image_id);

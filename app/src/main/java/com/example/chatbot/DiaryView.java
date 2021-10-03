@@ -144,7 +144,6 @@ public class DiaryView extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 102) {
-            Toast.makeText(this, "DiaryView 수정", Toast.LENGTH_SHORT).show();
             finish();
         }
     }

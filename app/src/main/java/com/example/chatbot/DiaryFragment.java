@@ -247,7 +247,6 @@ public class DiaryFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) { // 다이어리 추가 버튼을 눌렀을 때
         switch(item.getItemId()){
             case R.id.action_add:
-                Toast.makeText(getActivity(), "추가 버튼", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(),DiaryViewEdit.class);
                 //cMonth+=1;
                 intent.putExtra("cYear", cYear);
@@ -258,7 +257,6 @@ public class DiaryFragment extends Fragment {
                 break;
 
             case R.id.action_delete:
-                Toast.makeText(getActivity(), "삭제버튼", Toast.LENGTH_SHORT).show();
                 break;
         }
         return super.onOptionsItemSelected(item);

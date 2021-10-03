@@ -74,7 +74,7 @@ public class Tip2Adapter extends PagerAdapter {
 
 
 
-    //화면에 보이지 않은 View는파쾨를 해서 메모리를 관리함.
+    //화면에 보이지 않은 View는파괴를 해서 메모리를 관리함.
     //첫번째 파라미터 : ViewPager
     //두번째 파라미터 : 파괴될 View의 인덱스(가장 처음부터 0,1,2,3...)
     //세번째 파라미터 : 파괴될 객체(더 이상 보이지 않은 View 객체)

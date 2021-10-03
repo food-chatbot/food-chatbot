@@ -45,7 +45,7 @@ public class GalleryView extends AppCompatActivity {
         Intent getIntent = getIntent();
         image_id = getIntent.getIntExtra("image_id", 0);
 
-        String sql = "select img_file from DiaryData where post_id = " + image_id; //나중에 고치기
+        String sql = "select img_file from DiaryData where post_id = " + image_id;
         cursor = db.rawQuery(sql,null);
         while (cursor.moveToNext()) {
             image = cursor.getBlob(0);
